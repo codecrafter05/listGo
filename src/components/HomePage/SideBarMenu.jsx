@@ -1,3 +1,7 @@
+//file: src/components/HomePage/SideBarMenu.jsx
+
+import NewProjectModal from "../NewProjectModal/NewProjectModal";
+    
 export default function SideBarMenu() {
   return (
       <>
@@ -7,7 +11,7 @@ export default function SideBarMenu() {
 
 					<ul>
 						<li className="menu-title"> <a href="#" data-bs-toggle="modal" data-bs-target="#create_project"><i
-									className="fa-solid fa-plus"></i></a></li>
+                              className="fa-solid fa-plus"></i></a></li>
 						<li>
 							<a href="tasks.html">List 1 Name</a>
 						</li>

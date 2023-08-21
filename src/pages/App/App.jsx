@@ -14,8 +14,10 @@ function App() {
     <main className="App">
       {user ? (
         <>
-          <NavBar user={user} setUser={setUser} />
-          <SideBarMenu />
+          <div class="main-wrapper">
+            <NavBar user={user} setUser={setUser} />
+            <SideBarMenu />
+          </div>
           <Routes>
             {/* Route components in here */}
             <Route path="/profile/new" element={<ProfileAvtar />} />
