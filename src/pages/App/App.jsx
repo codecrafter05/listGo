@@ -14,9 +14,9 @@ function App() {
     <main className="App">
       {user ? (
         <>
-          <div class="page-wrapper">
-            <div class="chat-main-row">
-              <div class="chat-main-wrapper">
+          <div className="page-wrapper">
+            <div className="chat-main-row">
+              <div className="chat-main-wrapper">
                 {/* col-lg-7 HERE */}
                 {/* col-lg-5 HERE */}
               </div>

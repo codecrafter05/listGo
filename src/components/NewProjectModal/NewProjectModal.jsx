@@ -13,7 +13,7 @@ export default function NewProjectModal() {
 						</div>
 						<div className="modal-body">
 							<form>
-								<div classNameName="row">
+								<div className="row">
 									<div className="col-sm-12">
 										<div className="input-block mb-3">
 											<label className="col-form-label">List Name</label>

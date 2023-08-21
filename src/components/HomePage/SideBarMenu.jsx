@@ -10,8 +10,10 @@ export default function SideBarMenu() {
 				<div id="sidebar-menu" className="sidebar-menu">
 
 					<ul>
-						<li className="menu-title"> <a href="#" data-bs-toggle="modal" data-bs-target="#create_project"><i
-                              className="fa-solid fa-plus"></i></a></li>
+						<li className="menu-title"> <a data-bs-toggle="modal" data-bs-target="#create_project"><i
+							  className="fa-solid fa-plus"><NewProjectModal /></i></a>
+						</li>
+						  
 						<li>
 							<a href="tasks.html">List 1 Name</a>
 						</li>
