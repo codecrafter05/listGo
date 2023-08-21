@@ -1,3 +1,4 @@
+//file: src/pages/App.jsx
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { getUser } from "../../utilities/users-service";
@@ -17,7 +18,6 @@ function App() {
     <main className="App">
       {user ? (
         <>
-        {/* fsdfsd */}
           <div class="page-wrapper">
             <div class="chat-main-row">
               <div class="chat-main-wrapper">

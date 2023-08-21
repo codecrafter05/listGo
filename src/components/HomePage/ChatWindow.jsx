@@ -1,3 +1,4 @@
+//file: src/components/ChatWindow.jsx
 export default function ChatWindow() {
     return (
         <>
