@@ -5,7 +5,7 @@ import AuthPage from "../AuthPage/AuthPage";
 import ProfileAvtar from "../ProfileAvtar/ProfileAvtar";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBarMenu from "../../components/HomePage/SideBarMenu";
-import ChatWindow from "../../components/HomePage/ChatWindow";
+import ChatWindow from "../../components/HomePage/ChatWindow/ChatWindow";
 import "./App.css";
 
 function App() {
