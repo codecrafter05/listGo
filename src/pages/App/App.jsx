@@ -6,6 +6,9 @@ import ProfileAvtar from "../ProfileAvtar/ProfileAvtar";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBarMenu from "../../components/HomePage/SideBarMenu";
 import "./App.css";
+import ChatWindow from "../../components/HomePage/ChatWindow";
+import TaskHeader from "../../components/HomePage/TaskHeader";
+
 
 function App() {
   const [user, setUser] = useState(getUser());
@@ -14,11 +17,12 @@ function App() {
     <main className="App">
       {user ? (
         <>
-          <div className="page-wrapper">
-            <div className="chat-main-row">
-              <div className="chat-main-wrapper">
-                {/* col-lg-7 HERE */}
-                {/* col-lg-5 HERE */}
+        {/* fsdfsd */}
+          <div class="page-wrapper">
+            <div class="chat-main-row">
+              <div class="chat-main-wrapper">
+                <ChatWindow />
+                <TaskHeader />
               </div>
             </div>
           </div>
