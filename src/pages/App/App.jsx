@@ -5,7 +5,9 @@ import AuthPage from "../AuthPage/AuthPage";
 import ProfileAvtar from "../ProfileAvtar/ProfileAvtar";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBarMenu from "../../components/HomePage/SideBarMenu";
+import TaskHeader from "../../components/HomePage/TaskHeader";
 import "./App.css";
+
 
 function App() {
   const [user, setUser] = useState(getUser());
