@@ -20,7 +20,7 @@ function App() {
             <div class="chat-main-row">
               <div class="chat-main-wrapper">
                 {/* col-lg-7 HERE */}
-                {/* col-lg-5 HERE */}
+                <TaskHeader />
               </div>
             </div>
           </div>
