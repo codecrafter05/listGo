@@ -5,6 +5,7 @@ import AuthPage from "../AuthPage/AuthPage";
 import ProfileAvtar from "../ProfileAvtar/ProfileAvtar";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBarMenu from "../../components/HomePage/SideBarMenu";
+import ChatWindow from "../../components/HomePage/ChatWindow";
 import "./App.css";
 
 function App() {
@@ -14,10 +15,11 @@ function App() {
     <main className="App">
       {user ? (
         <>
+        {/* fsdfsd */}
           <div class="page-wrapper">
             <div class="chat-main-row">
               <div class="chat-main-wrapper">
-                {/* col-lg-7 HERE */}
+              <ChatWindow />
                 {/* col-lg-5 HERE */}
               </div>
             </div>
