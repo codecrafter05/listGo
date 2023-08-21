@@ -1,6 +1,10 @@
 Done from trello (Team Task Manager)
 
-![alt text](images/trello.png "Team Tasks")
+![alt text](img/trello.png "Team Tasks")
+wire frame
+![alt text](images/Untitled-2023-08-20-0031.png "Team Tasks")
+![alt text](images/Untitled-2023-08-20-00312.png "Team Tasks")
+
 
 
 
@@ -31,3 +35,8 @@ As a user:
 
 As a user, I want to be able to add and edit my tasks so that I know what I need to work on. I also want to be able to view my assigned tasks so that I can keep track of my responsibilities. To keep track of my progress, I want to be able to mark tasks as complete. Additionally, I want to be able to communicate with other members about the task by adding notes and comments. To prioritize my workload, I want to be able to view the deadlines for my tasks.
  main
+
+
+ERD Diagram
+
+![alt text](images/ERD-Diagram.png "ERD Diagram ")
