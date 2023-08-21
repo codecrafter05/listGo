@@ -30,7 +30,7 @@ function App() {
           <SideBarMenu />
           <Routes>
             {/* Route components in here */}
-            <Route path="/profile/new" element={<ProfileAvtar />} />
+            <Route path="/profile" element={<ProfileAvtar />} />
           </Routes>
         </>
       ) : (
