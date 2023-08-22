@@ -1,8 +1,24 @@
 //File: src/components/Task/TasksList.jsx
 
-import React from "react";
+import React, { useState, useEffect } from 'react';
 
 export default function TasksList() {
+  const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch('/tasks'); // Relative path to your backend
+        const tasksData = await response.json();
+        setTasks(tasksData);
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+    fetchTasks();
+    }, []);
+  
+  
   return (
     <div className="task-list-body">
       <ul id="task-list">
