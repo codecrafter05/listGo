@@ -1,9 +1,12 @@
 //file: src/components/homepage/chatwindow/chatwindow.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import TasksContents from '../Task/TasksContents';
 
 export default function ChatWindow() {
+    const [selectedListId, setSelectedListId] = useState('64e3748996003e0e77ece764'); // Hardcoded Define selectedListId 
+    console.log('ChatWindow rendering');
+
     return (
         <>
         <div className="col-lg-7 message-view task-view task-left-sidebar">
@@ -48,7 +51,7 @@ export default function ChatWindow() {
                         </ul>
                     </div>
                 </div>
-                <TasksContents />
+                <TasksContents selectedListId={selectedListId} />
             </div>
         </div>
         </>

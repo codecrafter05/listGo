@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function() {
 !(function () {
     var i,
         c,
@@ -15,7 +16,7 @@
         E,
         y,
         I,
-        z = document.querySelector(".sidebar").innerHTML,
+        z = document.querySelector(".sidebar").innerHTML;
         l = localStorage.getItem("language");
     function r(a) {
         var b;
@@ -833,3 +834,4 @@
         });
 })();
 
+});

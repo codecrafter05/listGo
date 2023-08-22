@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import TasksList from './TasksList';
 import TasksFooter from './TasksFooter';
 
-export default function TasksContents() {
-    const [selectedListId, setSelectedListId] = useState(null); // Add selectedListId state
+export default function TasksContents({selectedListId}) {
+    // const [selectedListId, setSelectedListId] = useState(null); // Add selectedListId state
+    console.log('Received selectedListId as prop:', selectedListId);
+    console.log('TasksContents rendering with selectedListId:', selectedListId);
 
     return (
         <div className="chat-contents">

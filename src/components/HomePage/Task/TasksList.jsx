@@ -2,19 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 
-export default function TasksList({ selectedListId }) {
+export default function TasksList({selectedListId}) {
   const [tasks, setTasks] = useState([]);
 
 useEffect(() => {
   const fetchTasks = async () => {
     try {
-      const response = await fetch(`/api/tasks?listId=${selectedListId}`); // Include selectedListId as query parameter
-      if (!response.ok) {
-        throw new Error(`Error fetching tasks. Status: ${response.status}`);
+      if (selectedListId !== null) {
+        const response = await fetch(`/api/tasks?listId=${selectedListId}`);
+        if (!response.ok) {
+          throw new Error(`Error fetching tasks. Status: ${response.status}`);
+        }
+        const tasksData = await response.json();
+        console.log('Fetched tasks data:', tasksData);
+        setTasks(tasksData);
       }
-      const tasksData = await response.json();
-      console.log('Fetched tasks data:', tasksData);
-      setTasks(tasksData);
     } catch (error) {
       console.log('Error fetching tasks:', error);
     }

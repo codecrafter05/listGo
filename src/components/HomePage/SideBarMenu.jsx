@@ -57,7 +57,8 @@ export default function SideBarMenu() {
               </li>
               {listData.map((item, index) => (
                 <li key={index} className="d-flex justify-content-between align-items-center">
-                  <a href={item.link} onClick={() => setSelectedListId(item._id)}>{item.name}</a> {/* SMOHD : im seting the selected list here I think the href is not correct ? */}
+                  <a onClick={() => { console.log('List clicked:', item._id); setSelectedListId(item._id); }}>{item.name}</a>
+                  {/* SMOHD : am i seting the selected list here ? */}
                   <div>
                     <button className="btn btn-danger btn-sm me-2" onClick={() => handleDelete(item._id)}>Delete</button>
                     <button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#edit_list_${item._id}`}>Edit</button>
