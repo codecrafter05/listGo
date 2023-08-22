@@ -1,4 +1,4 @@
-// src/components/HomePage/EditListModal.jsx
+/// src/components/HomePage/EditListModal.jsx
 import { useState } from 'react';
 
 export default function EditListModal({ listId, onEdit }) {
