@@ -260,22 +260,22 @@ export default function TaskHeader({ onRemove, allowedUserId, currentUserId }) {
             </div>
 
 
-            <div id="duedate" class="modal custom-modal fade" role="dialog">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Select a Due Date</h5>
+            <div id="duedate" className="modal custom-modal fade" role="dialog">
+				<div className="modal-dialog modal-dialog-centered" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title">Select a Due Date</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
-							<div class="input-block mb-3 col-md-6">
-								<div class="cal-icon">
-									<input class="form-control datetimepicker" type="text"></input>
+						<div className="modal-body">
+							<div className="input-block mb-3 col-md-6">
+								<div className="cal-icon">
+									<input className="form-control datetimepicker" type="text"></input>
 								</div>
 							</div>
-							<div class="submit-section">
+							<div className="submit-section">
 								<button class="btn btn-primary submit-btn">Assign</button>
 							</div>
 						</div>
