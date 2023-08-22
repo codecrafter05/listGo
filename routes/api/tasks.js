@@ -1,13 +1,13 @@
-// File: routes/tasks.js
+// File: routes/api/tasks.js
 
 const express = require('express');
 const router = express.Router();
-const Task = require('../models/task'); // Your Task model
+const Task = require('../../models/task');
 
-// GET all tasks
-router.get('/tasks', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const tasks = await Task.find();
+    console.log('Tasks:', tasks); // Log tasks here
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ message: error.message });

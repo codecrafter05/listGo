@@ -1,4 +1,7 @@
+//file: src/components/homepage/chatwindow/chatwindow.jsx
+
 import React from 'react';
+import TasksContents from '../Task/TasksContents';
 
 export default function ChatWindow() {
     return (
@@ -45,102 +48,7 @@ export default function ChatWindow() {
                         </ul>
                     </div>
                 </div>
-                <div className="chat-contents">
-                    <div className="chat-content-wrap">
-                        <div className="chat-wrap-inner">
-                            <div className="chat-box">
-                                <div className="task-wrapper">
-                                    <div className="task-list-container">
-                                        <div className="task-list-body">
-                                            <ul id="task-list">
-                                                <li className="task">
-                                                    <div className="task-container">
-                                                        <span className="task-action-btn task-check">
-                                                            <span className="action-circle large complete-btn"
-                                                                title="Mark Complete">
-                                                                <i className="material-icons">check</i>
-                                                            </span>
-                                                        </span>
-                                                        <span className="task-label" contenteditable="true">Task
-                                                            1</span>
-                                                        <span className="task-action-btn task-btn-right">
-                                                            <span className="action-circle large"
-                                                                title="Assign">
-                                                                <i className="material-icons">person_add</i>
-                                                            </span>
-                                                            <span className="action-circle large delete-btn"
-                                                                title="Delete Task">
-                                                                <i className="material-icons">delete</i>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="task">
-                                                    <div className="task-container">
-                                                        <span className="task-action-btn task-check">
-                                                            <span className="action-circle large complete-btn"
-                                                                title="Mark Complete">
-                                                                <i className="material-icons">check</i>
-                                                            </span>
-                                                        </span>
-                                                        <span className="task-label" contenteditable="true">Task
-                                                            2</span>
-                                                        <span className="task-action-btn task-btn-right">
-                                                            <span className="action-circle large"
-                                                                title="Assign">
-                                                                <i className="material-icons">person_add</i>
-                                                            </span>
-                                                            <span className="action-circle large delete-btn"
-                                                                title="Delete Task">
-                                                                <i className="material-icons">delete</i>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li className="completed task">
-                                                    <div className="task-container">
-                                                        <span className="task-action-btn task-check">
-                                                            <span className="action-circle large complete-btn"
-                                                                title="Mark Complete">
-                                                                <i className="material-icons">check</i>
-                                                            </span>
-                                                        </span>
-                                                        <span className="task-label">Task 3</span>
-                                                        <span className="task-action-btn task-btn-right">
-                                                            <span className="action-circle large"
-                                                                title="Assign">
-                                                                <i className="material-icons">person_add</i>
-                                                            </span>
-                                                            <span className="action-circle large delete-btn"
-                                                                title="Delete Task">
-                                                                <i className="material-icons">delete</i>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div className="task-list-footer">
-                                            <div className="new-task-wrapper">
-                                                <textarea id="new-task"
-                                                    placeholder="Enter new task here. . ."></textarea>
-                                                <span className="add-new-task-btn btn" id="add-task">Add
-                                                    Task</span>
-                                                <span className="btn" id="close-task-panel">Close</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="notification-popup hide">
-                                    <p>
-                                        <span className="task"></span>
-                                        <span className="notification-text"></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <TasksContents />
             </div>
         </div>
         </>

@@ -5,19 +5,24 @@ import React, { useState, useEffect } from 'react';
 export default function TasksList() {
   const [tasks, setTasks] = useState([]);
 
-    useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch('/tasks'); // Relative path to your backend
-        const tasksData = await response.json();
-        setTasks(tasksData);
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
+useEffect(() => {
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch('/api/tasks'); // Relative path to your backend
+      if (!response.ok) {
+        throw new Error(`Error fetching tasks. Status: ${response.status}`);
       }
-    };
-    fetchTasks();
-    }, []);
-  
+      const tasksData = await response.json();
+      console.log('Fetched tasks data:', tasksData);
+      setTasks(tasksData);
+    } catch (error) {
+      console.log('Error fetching tasks:', error);
+    }
+  };
+  fetchTasks();
+}, []);
+
+  console.log(tasks);
   
   return (
     <div className="task-list-body">
@@ -25,86 +30,28 @@ export default function TasksList() {
         {tasks.map((task) => (
           <li className="task" key={task._id}>
             <div className="task-container">
-              {/* ... Render task details here */}
+              <span className="task-action-btn task-check">
+                <span
+                  className="action-circle large complete-btn"
+                  title="Mark Complete"
+                >
+                  <i className="material-icons">check</i>
+                </span>
+              </span>
+              <span className="task-label" contenteditable="true">
+                {task.title}
+              </span>
+              <span className="task-action-btn task-btn-right">
+                <span
+                  className="action-circle large delete-btn"
+                  title="Delete Task"
+                >
+                  <i className="material-icons">delete</i>
+                </span>
+              </span>
             </div>
           </li>
         ))}
-        <li className="task">
-          <div className="task-container">
-            <span className="task-action-btn task-check">
-              <span
-                className="action-circle large complete-btn"
-                title="Mark Complete"
-              >
-                <i className="material-icons">check</i>
-              </span>
-            </span>
-            <span className="task-label" contenteditable="true">
-              Task 1
-            </span>
-            <span className="task-action-btn task-btn-right">
-              <span className="action-circle large" title="Assign">
-                <i className="material-icons">person_add</i>
-              </span>
-              <span
-                className="action-circle large delete-btn"
-                title="Delete Task"
-              >
-                <i className="material-icons">delete</i>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li className="task">
-          <div className="task-container">
-            <span className="task-action-btn task-check">
-              <span
-                className="action-circle large complete-btn"
-                title="Mark Complete"
-              >
-                <i className="material-icons">check</i>
-              </span>
-            </span>
-            <span className="task-label" contenteditable="true">
-              Task 2
-            </span>
-            <span className="task-action-btn task-btn-right">
-              <span className="action-circle large" title="Assign">
-                <i className="material-icons">person_add</i>
-              </span>
-              <span
-                className="action-circle large delete-btn"
-                title="Delete Task"
-              >
-                <i className="material-icons">delete</i>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li className="completed task">
-          <div className="task-container">
-            <span className="task-action-btn task-check">
-              <span
-                className="action-circle large complete-btn"
-                title="Mark Complete"
-              >
-                <i className="material-icons">check</i>
-              </span>
-            </span>
-            <span className="task-label">Task 3</span>
-            <span className="task-action-btn task-btn-right">
-              <span className="action-circle large" title="Assign">
-                <i className="material-icons">person_add</i>
-              </span>
-              <span
-                className="action-circle large delete-btn"
-                title="Delete Task"
-              >
-                <i className="material-icons">delete</i>
-              </span>
-            </span>
-          </div>
-        </li>
       </ul>
     </div>
   );

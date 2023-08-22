@@ -1,3 +1,5 @@
+//file: server.js
+
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -23,8 +25,9 @@ app.use(require('./config/checkToken'));
 
 // Put all API routes here (before the catch-all)
 app.use('/api/users', require('./routes/api/users'));
-
 app.use('/api/projects', require('./routes/api/projects'));
+app.use('/api/tasks', require('./routes/api/tasks'));
+
 
 // "catch-all" route that will match all GET requests
 // that don't match an API route defined above
