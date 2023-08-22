@@ -1,35 +1,67 @@
+//folder: src/components/HomePage/SideBarMenu.jsx
 import { useState, useEffect } from 'react';
-import NewListModal from "../NewListModal/NewListModal";
+import NewListModal from "./NewListModal";
 
 export default function SideBarMenu() {
   const [listData, setListData] = useState([]); // The data for your lists
   
   useEffect(() => {
-    fetch('/api/lists') // Replace this with your API endpoint
+    fetch('/api/lists')
       .then(response => response.json())
-      .then(data => setListData(data)); // Update your state with the data
-  }, []); // Empty array means this effect runs once on component mount
+      .then(data => setListData(data));
+  }, []);
+
+  const handleCreate = (newList) => {
+    setListData(prevListData => [...prevListData, newList]);
+  };
+
+  const handleDelete = (listId) => {
+    fetch(`/api/lists/${listId}`, { method: 'DELETE' })
+      .then(() => {
+        setListData(prevListData => prevListData.filter(list => list._id !== listId));
+      });
+  };
+
+  const handleEdit = (listId, updatedData) => {
+    fetch(`/api/lists/${listId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData),
+    })
+      .then(response => response.json())
+      .then(updatedList => {
+        setListData(prevListData => prevListData.map(list => list._id === listId ? updatedList : list));
+      });
+  };
 
   return (
-      <>
-		<div className="sidebar" id="sidebar">
-			<div className="sidebar-inner slimscroll">
-				<div id="sidebar-menu" className="sidebar-menu">
-					<ul>
-						<li className="menu-title"> 
-							<a data-bs-toggle="modal" data-bs-target="#create_project">
-							  <i className="fa-solid fa-plus"><NewListModal /></i>
-							</a>
-						</li>
-						{listData.map((item, index) => (
-							<li key={index}>
-							  <a href={item.link}>{item.name}</a>
-							</li>
-						))}
-					</ul>
-				</div>
-			</div>
-		</div>
-      </>
+    <>
+      <div className="sidebar" id="sidebar">
+        <div className="sidebar-inner slimscroll">
+          <div id="sidebar-menu" className="sidebar-menu">
+            <ul>
+              <li className="menu-title"> 
+                <span 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#create_list"
+                  style={{cursor: 'pointer'}}>
+                  <i className="fa-solid fa-plus"></i>
+                </span>
+                <NewListModal onCreate={handleCreate} />
+              </li>
+              {listData.map((item, index) => (
+                <li key={index}>
+                  <a href={item.link}>{item.name}</a>
+                  <button onClick={() => handleDelete(item._id)}>Delete</button>
+                  <button onClick={() => handleEdit(item._id, {/* updated data here */})}>Edit</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
