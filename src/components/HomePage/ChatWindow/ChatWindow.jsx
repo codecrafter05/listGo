@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import TasksContents from '../Task/TasksContents';
+import { useSelector } from 'react-redux';
 
 export default function ChatWindow() {
-    const [selectedListId, setSelectedListId] = useState('64e3748996003e0e77ece764'); // Hardcoded Define selectedListId 
+    const selectedListId = useSelector(state => state.selectedListId);
     console.log('ChatWindow rendering');
 
     return (
