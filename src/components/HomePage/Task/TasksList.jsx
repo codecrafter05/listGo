@@ -22,6 +22,13 @@ export default function TasksList() {
   return (
     <div className="task-list-body">
       <ul id="task-list">
+        {tasks.map((task) => (
+          <li className="task" key={task._id}>
+            <div className="task-container">
+              {/* ... Render task details here */}
+            </div>
+          </li>
+        ))}
         <li className="task">
           <div className="task-container">
             <span className="task-action-btn task-check">
