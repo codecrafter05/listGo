@@ -11,10 +11,7 @@ export default function AuthPage({ setUser }) {
           :
           <LoginForm setUser={setUser} />
       }
-{/* <button onClick={() => setShowSignUp(!showSignUp)}>{showSignUp ? 'Log In' : 'Sign Up'}</button> */}
-<p>Don't have an account yet? <a className='btn' onClick={() => setShowSignUp(!showSignUp)}>{showSignUp ? 'Log In' : 'Register'}</a></p>
-
-
+      <p>Don't have an account yet? <a className='btn' style={{ color: 'blue' }} onClick={() => setShowSignUp(!showSignUp)}>{showSignUp ? 'Log In' : 'Register'}</a></p>
     </main>
   );
 }
