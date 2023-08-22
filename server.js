@@ -23,8 +23,7 @@ app.use(require('./config/checkToken'));
 
 // Put all API routes here (before the catch-all)
 app.use('/api/users', require('./routes/api/users'));
-
-app.use('/api/projects', require('./routes/api/projects'));
+app.use('/api/lists', require('./routes/api/lists'));
 
 // "catch-all" route that will match all GET requests
 // that don't match an API route defined above
