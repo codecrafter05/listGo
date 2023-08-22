@@ -5,6 +5,7 @@ import EditListModal from "./EditListModal"; // import the new component
 
 export default function SideBarMenu() {
   const [listData, setListData] = useState([]); 
+  const [selectedListId, setSelectedListId] = useState(null); // SMOHD : Im tracing the selected list here
 
   useEffect(() => {
     fetch('/api/lists')
@@ -56,7 +57,7 @@ export default function SideBarMenu() {
               </li>
               {listData.map((item, index) => (
                 <li key={index} className="d-flex justify-content-between align-items-center">
-                  <a href={item.link}>{item.name}</a>
+                  <a href={item.link} onClick={() => setSelectedListId(item._id)}>{item.name}</a> {/* SMOHD : im seting the selected list here I think the href is not correct ? */}
                   <div>
                     <button className="btn btn-danger btn-sm me-2" onClick={() => handleDelete(item._id)}>Delete</button>
                     <button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#edit_list_${item._id}`}>Edit</button>

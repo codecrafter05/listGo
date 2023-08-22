@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 
-export default function TasksList() {
+export default function TasksList({ selectedListId }) {
   const [tasks, setTasks] = useState([]);
 
 useEffect(() => {
   const fetchTasks = async () => {
     try {
-      const response = await fetch('/api/tasks'); // Relative path to your backend
+      const response = await fetch(`/api/tasks?listId=${selectedListId}`); // Include selectedListId as query parameter
       if (!response.ok) {
         throw new Error(`Error fetching tasks. Status: ${response.status}`);
       }
@@ -20,7 +20,7 @@ useEffect(() => {
     }
   };
   fetchTasks();
-}, []);
+}, [selectedListId]); // Include selectedListId in dependency array
 
   console.log(tasks);
   
