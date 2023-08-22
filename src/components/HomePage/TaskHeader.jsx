@@ -133,7 +133,7 @@ export default function TaskHeader({ onRemove, allowedUserId, currentUserId }) {
                     <div className="chat chat-left">
                       <div className="chat-avatar">
                         <a href="profile.html" className="avatar">
-                          <img src="assets/img/profiles/avatar-02.jpg"
+                          <img src="assets/img/profile s/avatar-02.jpg"
                             alt="User Image"></img>
                         </a>
                       </div>
@@ -261,24 +261,6 @@ export default function TaskHeader({ onRemove, allowedUserId, currentUserId }) {
           </div>
         </div>
       </div>
-
-      <div className="task-due-date">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#date">
-          <div className="due-icon">
-            <span>
-              <i className="material-icons">date_range</i>
-            </span>
-          </div>
-          <div className="due-info">
-            <div className="task-head-title">Due Date</div>
-            <div className="due-date">Mar 26, 2019</div>
-          </div>
-        </a>
-        <span className="remove-icon">
-          <i className="fa fa-close"></i>
-        </span>
-      </div>
-
     </>
 
   );
