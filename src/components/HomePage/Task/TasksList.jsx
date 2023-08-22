@@ -43,14 +43,19 @@ useEffect(() => {
               <span className="task-label" contenteditable="true">
                 {task.title}
               </span>
+              
               <span className="task-action-btn task-btn-right">
-                <span
-                  className="action-circle large delete-btn"
-                  title="Delete Task"
-                >
+                <span className="action-circle large" title="edit">
+                  <i className="material-icons">edit</i>
+                </span>
+                <span className="action-circle large" title="visibility">
+                  <i className="material-icons">visibility</i>
+                </span>
+                <span className="action-circle large delete-btn" title="Delete Task">
                   <i className="material-icons">delete</i>
                 </span>
               </span>
+              
             </div>
           </li>
         ))}
