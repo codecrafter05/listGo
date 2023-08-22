@@ -1,14 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Project = require('../../models/Project');
+const projectsCtrl = require('../../controllers/api/projects');
 
-router.post('/', async (req, res) => {
-  try {
-    const project = await Project.create(req.body);
-    res.status(201).json(project);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.post('/', projectsCtrl.create);
 
 module.exports = router;
