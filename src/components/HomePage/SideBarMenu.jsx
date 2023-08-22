@@ -1,9 +1,11 @@
+// src/components/HomePage/SideBarMenu.jsx
 import { useState, useEffect } from 'react';
 import NewListModal from "./NewListModal";
+import EditListModal from "./EditListModal"; // import the new component
 
 export default function SideBarMenu() {
   const [listData, setListData] = useState([]); 
-  
+
   useEffect(() => {
     fetch('/api/lists')
       .then(response => response.json())
@@ -21,9 +23,7 @@ export default function SideBarMenu() {
       });
   };
 
-  const handleEdit = (listId) => {
-    const newName = prompt('Enter the new name for the list');
-
+  const handleEdit = (listId, newName) => {
     if (newName) {
       fetch(`/api/lists/${listId}`, {
         method: 'PUT',
@@ -55,10 +55,13 @@ export default function SideBarMenu() {
                 <NewListModal onCreate={handleCreate} />
               </li>
               {listData.map((item, index) => (
-                <li key={index}>
+                <li key={index} className="d-flex justify-content-between align-items-center">
                   <a href={item.link}>{item.name}</a>
-                  <button onClick={() => handleDelete(item._id)}>Delete</button>
-                  <button onClick={() => handleEdit(item._id)}>Edit</button>
+                  <div>
+                    <button className="btn btn-danger btn-sm me-2" onClick={() => handleDelete(item._id)}>Delete</button>
+                    <button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#edit_list_${item._id}`}>Edit</button>
+                    <EditListModal listId={item._id} onEdit={(newName) => handleEdit(item._id, newName)} />
+                  </div>
                 </li>
               ))}
             </ul>
