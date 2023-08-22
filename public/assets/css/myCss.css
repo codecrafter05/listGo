@@ -1,3 +1,8 @@
 .modal-backdrop {
-    --bs-backdrop-zindex: 999;
+    --bs-backdrop-zindex: 998;
 }
+
+.modal {
+    --bs-modal-color: rebeccapurple
+}
+
