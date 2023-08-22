@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function NewProjectModal({ onCreate }) {
+export default function NewListModal({ onCreate }) {
   const [listName, setListName] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
 
@@ -21,7 +21,7 @@ export default function NewProjectModal({ onCreate }) {
     }
 
     try {
-      const response = await fetch('/api/projects', {
+      const response = await fetch('/api/lists', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export default function NewProjectModal({ onCreate }) {
       const data = await response.json();
       console.log(data); // Log the data for now, update this to do something useful in your app
 
-      // Call the onCreate function prop after creating the project
+      // Call the onCreate function prop after creating the list
       onCreate(data);
 
     } catch (err) {
@@ -47,7 +47,7 @@ export default function NewProjectModal({ onCreate }) {
   };
 
   return (
-    <div id="create_project" className="modal custom-modal" role="dialog">
+    <div id="create_list" className="modal custom-modal" role="dialog">
       <div className="modal-dialog modal-dialog-centered modal-lg" role="dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -80,7 +80,7 @@ export default function NewProjectModal({ onCreate }) {
                 <div className="col-sm-6">
                   <div className="input-block mb-3">
                     <label className="col-form-label">Team Members</label>
-                    <div className="project-members">
+                    <div className="list-members">
                       {teamMembers.map((member, index) => (
                         <a className="avatar" href="#" data-bs-toggle="tooltip" title={member} key={index}>
                           <img src="assets/img/profiles/avatar-02.jpg" alt="User Image"/>

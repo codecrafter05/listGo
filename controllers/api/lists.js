@@ -1,4 +1,4 @@
-const Project = require('../../models/project');
+const List = require('../../models/list');
 
 module.exports = {
   create
@@ -6,8 +6,8 @@ module.exports = {
 
 async function create(req, res) {
     try {
-      const project = await Project.create(req.body);
-      res.status(201).json(project);
+      const list = await List.create(req.body);
+      res.status(201).json(list);
     } catch (err) {
       res.status(500).json(err);
     }

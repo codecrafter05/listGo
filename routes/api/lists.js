@@ -1,0 +1,7 @@
+const express = require('express');
+const router = express.Router();
+const listsCtrl = require('../../controllers/api/lists');
+
+router.post('/', listsCtrl.create);
+
+module.exports = router;

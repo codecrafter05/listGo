@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import NewProjectModal from "../NewProjectModal/NewProjectModal";
+import NewListModal from "../NewListModal/NewListModal";
 
 export default function SideBarMenu() {
   const [listData, setListData] = useState([]); // The data for your lists
   
   useEffect(() => {
-    fetch('/api/to/your/data') // Replace this with your API endpoint
+    fetch('/api/lists') // Replace this with your API endpoint
       .then(response => response.json())
       .then(data => setListData(data)); // Update your state with the data
   }, []); // Empty array means this effect runs once on component mount
@@ -18,7 +18,7 @@ export default function SideBarMenu() {
 					<ul>
 						<li className="menu-title"> 
 							<a data-bs-toggle="modal" data-bs-target="#create_project">
-							  <i className="fa-solid fa-plus"><NewProjectModal /></i>
+							  <i className="fa-solid fa-plus"><NewListModal /></i>
 							</a>
 						</li>
 						{listData.map((item, index) => (
