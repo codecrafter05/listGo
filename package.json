@@ -43,5 +43,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "devDependencies": {
+    "caniuse-lite": "^1.0.30001522",
+    "postcss-preset-env": "^9.1.1"
+  }
 }
