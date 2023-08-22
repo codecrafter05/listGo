@@ -1,10 +1,10 @@
-//Folder: controllers/api/lists.js
 const List = require('../../models/list');
 
 module.exports = {
   create,
-  delete: deleteList, // Delete function
-  edit: editList // Edit function
+  delete: deleteList,
+  edit: editList,
+  getAll,
 };
 
 async function create(req, res) {
@@ -16,7 +16,7 @@ async function create(req, res) {
   }
 }
 
-async function deleteList(req, res) { // Delete function
+async function deleteList(req, res) {
   try {
     const list = await List.findByIdAndRemove(req.params.id);
     if (!list) return res.status(404).json({error: 'List not found'});
@@ -26,11 +26,20 @@ async function deleteList(req, res) { // Delete function
   }
 }
 
-async function editList(req, res) { // Edit function
+async function editList(req, res) {
   try {
     const list = await List.findByIdAndUpdate(req.params.id, req.body, {new: true});
     if (!list) return res.status(404).json({error: 'List not found'});
     res.status(200).json(list);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+}
+
+async function getAll(req, res) {
+  try {
+    const lists = await List.find({});
+    res.status(200).json(lists);
   } catch (err) {
     res.status(500).json(err);
   }
