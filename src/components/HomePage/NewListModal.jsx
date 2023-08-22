@@ -93,7 +93,7 @@ export default function NewListModal({ onCreate }) {
                 <div className="col-sm-6">
                   <div className="input-block mb-3">
                     <label className="col-form-label">Team Members</label>
-                    <div className="list-members">
+                    <div className="project-members">
                       {teamMembers.map((member, index) => (
                         <a className="avatar" href="#" data-bs-toggle="tooltip" title={member} key={index}>
                           <img src="assets/img/profiles/avatar-02.jpg" alt="User Image" />
