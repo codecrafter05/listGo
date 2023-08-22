@@ -1,4 +1,4 @@
-//folder:src/HomePage/NewListModal.jsx
+///folder:src/HomePage/NewListModal.jsx
 import React, { useState, useRef } from 'react';
 
 export default function NewListModal({ onCreate }) {

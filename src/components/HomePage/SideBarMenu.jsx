@@ -1,4 +1,4 @@
-// src/components/HomePage/SideBarMenu.jsx
+///src/components/HomePage/SideBarMenu.jsx
 import { useState, useEffect } from 'react';
 import NewListModal from "./NewListModal";
 import EditListModal from "./EditListModal"; // import the new component
