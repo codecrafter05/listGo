@@ -5,6 +5,7 @@ export default function NewListModal({ onCreate }) {
   const [listName, setListName] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
   const [dueDate, setDueDate] = useState(new Date());
+  const [isOpen, setIsOpen] = useState(true);
   const memberInputRef = useRef(null);
 
   const handleAddMember = async (e) => {
@@ -17,7 +18,6 @@ export default function NewListModal({ onCreate }) {
   const addMember = async () => {
     const value = memberInputRef.current.value.trim();
     if (value !== '') {
-      // get member's ObjectId based on name or other properties
       const memberId = await memberId(value); // replace this with actual function
       setTeamMembers(prevMembers => [...prevMembers, memberId]);
       memberInputRef.current.value = '';
@@ -52,6 +52,7 @@ export default function NewListModal({ onCreate }) {
       console.log(data);
 
       onCreate(data);
+      setIsOpen(false); // Close the modal
 
     } catch (err) {
       console.error(err);
@@ -61,6 +62,11 @@ export default function NewListModal({ onCreate }) {
     setTeamMembers([]);
     setDueDate(new Date());
   };
+
+  // If isOpen is false, return null (don't render anything)
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div id="create_list" className="modal custom-modal" role="dialog">
