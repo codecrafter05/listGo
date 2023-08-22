@@ -1,9 +1,8 @@
-//folder: src/components/HomePage/SideBarMenu.jsx
 import { useState, useEffect } from 'react';
 import NewListModal from "./NewListModal";
 
 export default function SideBarMenu() {
-  const [listData, setListData] = useState([]); // The data for your lists
+  const [listData, setListData] = useState([]); 
   
   useEffect(() => {
     fetch('/api/lists')
@@ -22,18 +21,22 @@ export default function SideBarMenu() {
       });
   };
 
-  const handleEdit = (listId, updatedData) => {
-    fetch(`/api/lists/${listId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedData),
-    })
-      .then(response => response.json())
-      .then(updatedList => {
-        setListData(prevListData => prevListData.map(list => list._id === listId ? updatedList : list));
-      });
+  const handleEdit = (listId) => {
+    const newName = prompt('Enter the new name for the list');
+
+    if (newName) {
+      fetch(`/api/lists/${listId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: newName }),
+      })
+        .then(response => response.json())
+        .then(updatedList => {
+          setListData(prevListData => prevListData.map(list => list._id === listId ? updatedList : list));
+        });
+    }
   };
 
   return (
@@ -55,7 +58,7 @@ export default function SideBarMenu() {
                 <li key={index}>
                   <a href={item.link}>{item.name}</a>
                   <button onClick={() => handleDelete(item._id)}>Delete</button>
-                  <button onClick={() => handleEdit(item._id, {/* updated data here */})}>Edit</button>
+                  <button onClick={() => handleEdit(item._id)}>Edit</button>
                 </li>
               ))}
             </ul>
