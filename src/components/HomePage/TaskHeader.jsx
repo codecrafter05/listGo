@@ -1,5 +1,28 @@
+import { useState } from 'react';
 
-export default function TaskHeader() {
+export default function TaskHeader({ onRemove, allowedUserId, currentUserId }) {
+  const [notes, setNotes] = useState('');
+
+  const [assignedUser, setAssignedUser] = useState(null);
+
+  const users = [
+    { id: 1, name: 'Richard Miles', role: 'Web Developer' },
+    { id: 2, name: 'John Smith', role: 'Android Developer' },
+    { id: 3, name: 'Jeffery Lalor', role: 'Team Leader' },
+  ];
+
+  const handleAssignClick = (user, event) => {
+    setAssignedUser(user);
+  };
+
+  const handleNotesChange = (event) => {
+    setNotes(event.target.value);
+  };
+  // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
+  if (currentUserId !== allowedUserId) {
+    return null;
+  }
+
   return (
     <>
       <div className="col-lg-5 message-view task-chat-view task-right-sidebar" id="task_window">
@@ -33,15 +56,14 @@ export default function TaskHeader() {
                       <div className="assignee-info">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#assignee">
                           <div className="avatar">
-                            <img src="assets/img/profiles/avatar-02.jpg"
-                              alt="User Image"></img>
+                            <img src="assets/img/profiles/avatar-02.jpg" alt="User Image" />
                           </div>
                           <div className="assigned-info">
                             <div className="task-head-title">Assigned To</div>
-                            <div className="task-assignee">John Doe</div>
+                            <div className="task-assignee">{assignedUser || 'None'}</div>
                           </div>
                         </a>
-                        <span className="remove-icon">
+                        <span className="remove-icon" onClick={onRemove}>
                           <i className="fa fa-close"></i>
                         </span>
                       </div>
@@ -65,7 +87,11 @@ export default function TaskHeader() {
                     <hr className="task-line"></hr>
                     <div className="task-desc">
                       <div className="task-textarea">
-                        <textarea className="form-control" placeholder="Notes"></textarea>
+                        <textarea
+                          className="form-control"
+                          placeholder="Notes"
+                          value={notes}
+                          onChange={handleNotesChange} />
                       </div>
                     </div>
                     <hr className="task-line"></hr>
@@ -185,6 +211,74 @@ export default function TaskHeader() {
           </div>
         </div>
       </div>
+
+      <div id="assignee" className="modal custom-modal fade" role="dialog">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Assign to this task</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="input-group m-b-30">
+                <input placeholder="Search to add" className="form-control search-input" type="text"></input>
+                <button className="btn btn-primary">Search</button>
+              </div>
+              <div>
+                <ul className="chat-user-list">
+                  <div>
+                    <ul>
+                      {users.map((user) => (
+                        <li key={user.id}>
+                          <a href="#" onClick={() => handleAssignClick(user.name)}>
+                            <div className="chat-block d-flex">
+                              <div className="avatar">
+                                <img src="assets/img/profiles/avatar-02.jpg" alt="User Image" />
+                              </div>
+                              <div className="media-body align-self-center text-nowrap">
+                                <div className="user-name">{user.name}</div>
+                                <span className="designation">{user.role}</span>
+                              </div>
+                            </div>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </ul>
+              </div>
+              <div className="submit-section">
+                {/* <button className="btn btn-primary submit-btn" onClick={handleAssignClick}>
+                  Assign
+                </button> */}
+                <button type="button" className="btn btn-primary submit-btn" data-bs-dismiss="modal" aria-label="Close">
+                  Assign
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="task-due-date">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#date">
+          <div className="due-icon">
+            <span>
+              <i className="material-icons">date_range</i>
+            </span>
+          </div>
+          <div className="due-info">
+            <div className="task-head-title">Due Date</div>
+            <div className="due-date">Mar 26, 2019</div>
+          </div>
+        </a>
+        <span className="remove-icon">
+          <i className="fa fa-close"></i>
+        </span>
+      </div>
+
     </>
 
   );
