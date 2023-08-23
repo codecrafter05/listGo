@@ -6,9 +6,8 @@ import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
 
 export default function SingleTaskDetails({ onRemove, allowedUserId, currentUserId }) {
-    const [notes, setNotes] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
-    const [dueDate, setDueDate] = useState(new Date('Mar 26, 2019'));
+    const [dueDate, setDueDate] = useState(new Date());
 
     const users = [
         { id: 1, name: 'Richard Miles', role: 'Web Developer' },
@@ -22,8 +21,8 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
 
     const handleDateChange = (date) => {
         setDueDate(date);
-      };
-      
+    };
+
     // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
     if (currentUserId !== allowedUserId) {
         return null;
@@ -62,22 +61,22 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
                                                 </span>
                                             </div>
                                             <div className="task-due-date">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#dueDate">
-                                            <div className="due-icon">
-                                            <span>
-                                                <i className="material-icons">date_range</i>
-                                            </span>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#dueDate">
+                                                    <div className="due-icon">
+                                                        <span>
+                                                            <i className="material-icons">date_range</i>
+                                                        </span>
+                                                    </div>
+                                                    <div className="due-info">
+                                                        <div className="task-head-title">Due Date</div>
+                                                        <div className="due-date">{dueDate.toDateString()}</div>
+                                                    </div>
+                                                </a>
+                                                <span className="remove-icon">
+                                                    <i className="fa fa-close"></i>
+                                                </span>
                                             </div>
-                                            <div className="due-info">
-                                            <div className="task-head-title">Due Date</div>
-                                            <div className="due-date">{dueDate.toDateString()}</div>
-                                            </div>
-                                        </a>
-                                        <span className="remove-icon">
-                                            <i className="fa fa-close"></i>
-                                        </span>
                                         </div>
-                                        </div>    
                                         <TaskNotes />
                                         <TaskLog />
                                     </div>
@@ -141,29 +140,31 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
             <div id="dueDate" className="modal custom-modal fade" role="dialog">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">Select a Due Date</h5>
-                        <span aria-hidden="true">&times;</span>
-                    </div>
-                    <div className="modal-body">
-                        <div className="input-block mb-3 col-md-6">
-                        <div className="cal-icon">
-                            <DatePicker
-                            className="form-control datetimepicker"
-                            selected={dueDate}
-                            onChange={handleDateChange}
-                            />
+                        <div className="modal-header">
+                            <h5 className="modal-title">Select a Due Date</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div className="modal-body">
+                            <div className="input-block mb-3 col-md-6">
+                                <div className="cal-icon">
+                                    <DatePicker
+                                        className="form-control"
+                                        selected={dueDate}
+                                        onChange={handleDateChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="submit-section">
+                                <button className="btn btn-primary submit-btn" data-bs-dismiss="modal" aria-label="Close">
+                                    Assign
+                                </button>
+                            </div>
                         </div>
-                        <div className="submit-section">
-                        <button className="btn btn-primary submit-btn" data-bs-dismiss="modal" aria-label="Close">
-                            Assign
-                        </button>
-                        </div>
-                    </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </>
 
     );
