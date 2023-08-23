@@ -40,21 +40,44 @@ export default class SignUpForm extends Component {
   render() {
     const disable = this.state.password !== this.state.confirm;
     return (
-      <div>
-        <div className="form-container">
-          <form autoComplete="off" onSubmit={this.handleSubmit}>
-            <label>Name</label>
-            <input type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
-            <label>Email</label>
-            <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
-            <label>Password</label>
-            <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
-            <label>Confirm</label>
-            <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
-            <button type="submit" disabled={disable}>SIGN UP</button>
-          </form>
+      <div className="account-page">
+      <div className="main-wrapper">
+    <div className="account-content">
+      <div className="container">
+      
+        <div className="account-logo">
+          <a href="admin-dashboard.html"><img src="assets/img/logo2.png" alt="Dreamguy's Technologies"></img></a>
         </div>
-        <p className="error-message">&nbsp;{this.state.error}</p>
+        
+        <div className="account-box">
+          <div className="account-wrapper">
+            <h3 className="account-title">Register</h3>
+            <p className="account-subtitle">Access to our dashboard</p>
+            
+            <form autoComplete="off" onSubmit={this.handleSubmit}>
+              <div className="input-block mb-4">
+              <label className="col-form-label">Name<span className="mandatory">*</span></label>
+              <input className="form-control" type="text" name="name" value={this.state.name} onChange={this.handleChange} required />
+                <label className="col-form-label">Email<span className="mandatory">*</span></label>
+                <input className="form-control" type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
+              </div>
+              <div className="input-block mb-4">
+                <label className="col-form-label">Password<span className="mandatory">*</span></label>
+                <input className="form-control" type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
+              </div>
+              <div className="input-block mb-4">
+                <label className="col-form-label">confirm<span className="mandatory">*</span></label>
+                <input className="form-control" type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
+              </div>
+              <div className="input-block mb-4 text-center">
+                <button className="btn btn-primary account-btn" type="submit">Register</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
       </div>
     );
   }
