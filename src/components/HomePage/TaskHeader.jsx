@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export default function TaskHeader({ onRemove, allowedUserId, currentUserId }) {
     const [notes, setNotes] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
+    const [dueDate, setDueDate] = useState(new Date('Mar 26, 2019'));
 
     const users = [
         { id: 1, name: 'Richard Miles', role: 'Web Developer' },
@@ -17,6 +20,11 @@ export default function TaskHeader({ onRemove, allowedUserId, currentUserId }) {
     const handleNotesChange = (event) => {
         setNotes(event.target.value);
     };
+
+    const handleDateChange = (date) => {
+        setDueDate(date);
+      };
+      
     // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
     if (currentUserId !== allowedUserId) {
         return null;
@@ -67,21 +75,21 @@ export default function TaskHeader({ onRemove, allowedUserId, currentUserId }) {
                                                 </span>
                                             </div>
                                             <div className="task-due-date">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#dueDate">
-                                                    <div className="due-icon">
-                                                        <span>
-                                                            <i className="material-icons">date_range</i>
-                                                        </span>
-                                                    </div>
-                                                    <div className="due-info">
-                                                        <div className="task-head-title">Due Date</div>
-                                                        <div className="due-date">Mar 26, 2019</div>
-                                                    </div>
-                                                </a>
-                                                <span className="remove-icon">
-                                                    <i className="fa fa-close"></i>
-                                                </span>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#dueDate">
+                                            <div className="due-icon">
+                                            <span>
+                                                <i className="material-icons">date_range</i>
+                                            </span>
                                             </div>
+                                            <div className="due-info">
+                                            <div className="task-head-title">Due Date</div>
+                                            <div className="due-date">{dueDate.toDateString()}</div>
+                                            </div>
+                                        </a>
+                                        <span className="remove-icon">
+                                            <i className="fa fa-close"></i>
+                                        </span>
+                                        </div>
                                         </div>
                                         <hr className="task-line"></hr>
                                         <div className="task-desc">
@@ -260,28 +268,32 @@ export default function TaskHeader({ onRemove, allowedUserId, currentUserId }) {
             </div>
 
 
-            <div id="duedate" className="modal custom-modal fade" role="dialog">
-				<div className="modal-dialog modal-dialog-centered" role="document">
-					<div className="modal-content">
-						<div className="modal-header">
-							<h5 className="modal-title">Select a Due Date</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div className="modal-body">
-							<div className="input-block mb-3 col-md-6">
-								<div className="cal-icon">
-									<input className="form-control datetimepicker" type="text"></input>
-								</div>
-							</div>
-							<div className="submit-section">
-								<button class="btn btn-primary submit-btn">Assign</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div id="dueDate" className="modal custom-modal fade" role="dialog">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Select a Due Date</h5>
+                        <span aria-hidden="true">&times;</span>
+                    </div>
+                    <div className="modal-body">
+                        <div className="input-block mb-3 col-md-6">
+                        <div className="cal-icon">
+                            <DatePicker
+                            className="form-control datetimepicker"
+                            selected={dueDate}
+                            onChange={handleDateChange}
+                            />
+                        </div>
+                        </div>
+                        <div className="submit-section">
+                        <button className="btn btn-primary submit-btn" data-bs-dismiss="modal" aria-label="Close">
+                            Assign
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
         </>
 
     );
