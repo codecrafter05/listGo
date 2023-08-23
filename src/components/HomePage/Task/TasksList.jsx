@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 export default function TasksList({selectedListId}) {
   const [tasks, setTasks] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const editableRefs = useRef(Array(tasks.length).fill(null));
 
   const handleKeyDown = async (event, task, index) => {
@@ -29,6 +29,22 @@ export default function TasksList({selectedListId}) {
     }
   };
 
+const handleDeleteTask = async (taskId) => {
+  try {
+    const response = await fetch(`/api/tasks/${taskId}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`Error deleting task. Status: ${response.status}`);
+    }
+    // Update the task list after deletion
+    setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+  } catch (error) {
+    console.error('Error deleting task:', error);
+  }
+};
+
+
 useEffect(() => {
   const fetchTasks = async () => {
     try {
@@ -43,6 +59,8 @@ useEffect(() => {
       }
     } catch (error) {
       console.log('Error fetching tasks:', error);
+    } finally {
+      setLoading(false); // Mark loading as done
     }
   };
   fetchTasks();
@@ -68,7 +86,7 @@ useEffect(() => {
                   <i className="material-icons">check</i>
                 </span>
               </span>
-              <span className="task-label" contenteditable="true" ref={(element) => (editableRefs.current[index] = element)}
+              <span className="task-label" contentEditable="true" ref={(element) => (editableRefs.current[index] = element)}
               onKeyDown={(event) => handleKeyDown(event, task, index)}>
                 {task.title}
               </span>
@@ -85,7 +103,11 @@ useEffect(() => {
                 <span className="action-circle large" title="visibility">
                   <i className="material-icons">visibility</i>
                 </span>
-                <span className="action-circle large delete-btn" title="Delete Task">
+                <span
+                  className="action-circle large"
+                  title="Delete Task"
+                  onClick={() => handleDeleteTask(task._id)}
+                >
                   <i className="material-icons">delete</i>
                 </span>
               </span>
