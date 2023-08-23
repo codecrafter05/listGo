@@ -51,6 +51,7 @@ test/version_tmp
 # node #
 ########
 node_modules
+build
 
 # Rails #
 #########
