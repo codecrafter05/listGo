@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import TaskNotes from './TaskDetails/TaskNotes';
 import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
-// import  from './TaskDetails/TaskLog';
+
 
 export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, currentUserId }) {
     const [title, setTitle] = useState('');
