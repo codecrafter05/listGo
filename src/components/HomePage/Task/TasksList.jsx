@@ -25,6 +25,10 @@ useEffect(() => {
 }, [selectedListId]); // Include selectedListId in dependency array
 
   console.log(tasks);
+
+  const addTask = (newTask) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
   
   return (
     <div className="task-list-body">
