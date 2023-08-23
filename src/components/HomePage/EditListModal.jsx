@@ -28,7 +28,7 @@ export default function EditListModal({ listId, onEdit }) {
             <form onSubmit={handleEdit}>
               <div className="mb-3">
                 <label htmlFor="newName" className="form-label">New List Name</label>
-                <input type="text" className="form-control" id="newName" value={newName} onChange={(e) => setNewName(e.target.value)} required />
+                <input type="text" className="form-control" id="newName" value={newName} onChange={(e) => setNewName(e.target.value)} maxLength="17" required />
               </div>
               {/* Commented out for future use
               <div className="mb-3">
