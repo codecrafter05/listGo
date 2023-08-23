@@ -16,7 +16,7 @@ export default function TasksContents({selectedListId}) {
                     <div className="chat-box">
                         <div className="task-wrapper">
                             <TasksList selectedListId={selectedListId} /> {/* Pass selectedListId as prop */}
-                            <TasksFooter />
+                            <TasksFooter selectedListId={selectedListId} />
                         </div>
                     </div>
                 </div>

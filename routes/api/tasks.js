@@ -3,6 +3,9 @@
 const express = require('express');
 const router = express.Router();
 const Task = require('../../models/task');
+const taskCtrl = require('../../controllers/api/tasks');
+
+router.post('/', taskCtrl.create);
 
 router.get('/', async (req, res) => {
   const { listId } = req.query; // Get the listId from the query parameter
