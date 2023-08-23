@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react';
 export default function NewListModal({ onCreate }) {
   const [listName, setListName] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
-  const [dueDate, setDueDate] = useState(new Date());
+  // const [dueDate, setDueDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(true);
   const memberInputRef = useRef(null);
 
@@ -43,7 +43,7 @@ export default function NewListModal({ onCreate }) {
         body: JSON.stringify({
           name: listName,
           members: teamMembers,
-          due_date: dueDate,
+          // due_date: dueDate,
           creator: creatorId
         }),
       });
@@ -60,7 +60,7 @@ export default function NewListModal({ onCreate }) {
 
     setListName('');
     setTeamMembers([]);
-    setDueDate(new Date());
+    // setDueDate(new Date());
   };
 
   // If isOpen is false, return null (don't render anything)
@@ -108,12 +108,12 @@ export default function NewListModal({ onCreate }) {
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-12">
+                {/*<div className="col-sm-12">
                   <div className="input-block mb-3">
                     <label className="col-form-label">Due Date</label>
                     <input className="form-control" type="date" value={dueDate.toISOString().split('T')[0]} onChange={(e) => setDueDate(new Date(e.target.value))} />
                   </div>
-                </div>
+                </div>*/}
               </div>
               <div className="submit-section">
                 <button type="submit" className="btn btn-primary submit-btn">Submit</button>
