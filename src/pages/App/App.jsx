@@ -9,7 +9,7 @@ import SideBarMenu from "../../components/HomePage/SideBarMenu";
 import ChatWindow from "../../components/HomePage/ChatWindow/ChatWindow";
 
 import "./App.css";
-import TaskHeader from "../../components/HomePage/TaskHeader";
+import SingleTaskDetails from "../../components/HomePage/SingleTaskDetails";
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
             <div class="chat-main-row">
               <div class="chat-main-wrapper">
                 <ChatWindow />
-                <TaskHeader />
+                <SingleTaskDetails />
               </div>
             </div>
           </div>

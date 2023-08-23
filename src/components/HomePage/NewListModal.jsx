@@ -17,9 +17,22 @@ export default function NewListModal({ onCreate }) {
   const addMember = async () => {
     const value = memberInputRef.current.value.trim();
     if (value !== '') {
-      const memberId = await memberId(value); // replace this with actual function
-      setTeamMembers(prevMembers => [...prevMembers, memberId]);
-      memberInputRef.current.value = '';
+      try {
+        const response = await fetch('/api/users/emailToId', { // replace this with your actual endpoint
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: value }),
+        });
+        const data = await response.json();
+        const memberId = data.id;
+        setTeamMembers(prevMembers => [...prevMembers, memberId]);
+        memberInputRef.current.value = '';
+      } catch (err) {
+        console.error(err);
+        alert("Failed to add member. Please check the email and try again.");
+      }
     }
   };
 
