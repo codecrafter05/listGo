@@ -1,9 +1,11 @@
 //File: src/components/Task/TasksList.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function TasksList({selectedListId}) {
   const [tasks, setTasks] = useState([]);
+
+  const editableRefs = useRef(Array(tasks.length).fill(null));
 
 useEffect(() => {
   const fetchTasks = async () => {
@@ -33,7 +35,7 @@ useEffect(() => {
   return (
     <div className="task-list-body">
       <ul id="task-list">
-        {tasks.map((task) => (
+        {tasks.map((task, index) => (
           <li className="task" key={task._id}>
             <div className="task-container">
               <span className="task-action-btn task-check">
@@ -44,12 +46,17 @@ useEffect(() => {
                   <i className="material-icons">check</i>
                 </span>
               </span>
-              <span className="task-label" contenteditable="true">
+              <span className="task-label" contenteditable="true" ref={(element) => (editableRefs.current[index] = element)}>
                 {task.title}
               </span>
               
               <span className="task-action-btn task-btn-right">
-                <span className="action-circle large" title="edit">
+                <span className="action-circle large" title="edit" onClick={() => {
+                    task.editing = !task.editing;
+                    if (editableRefs.current[index]) {
+                      editableRefs.current[index].focus();
+                    }
+                  }}>
                   <i className="material-icons">edit</i>
                 </span>
                 <span className="action-circle large" title="visibility">
