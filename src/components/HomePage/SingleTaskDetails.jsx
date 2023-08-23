@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
 import TaskNotes from './TaskDetails/TaskNotes';
 import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
+// import  from './TaskDetails/TaskLog';
 
-export default function SingleTaskDetails({ onRemove, allowedUserId, currentUserId }) {
+export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, currentUserId }) {
+    const [title, setTitle] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
     const [dueDate, setDueDate] = useState(new Date());
 
@@ -15,14 +17,64 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
         { id: 3, name: 'Jeffery Lalor', role: 'Team Leader' },
     ];
 
-    const handleAssignClick = (user) => {
+    useEffect(() => {
+        const fetchTitle = async () => {
+          try {
+            const response = await fetch(`/api/tasks/${taskId}`);
+            if (!response.ok) {
+              throw new Error(`Error fetching task title. Status: ${response.status}`);
+            }
+            const taskData = await response.json();
+            setTitle(taskData.title);
+        } catch (error) {
+            console.log('Error fetching title:', error);
+          }
+        };
+        fetchTitle();
+      }, [taskId]);
+
+      const handleAssignClick = async (user) => {
+        // Update the state
         setAssignedUser(user);
+    
+        // Send a request to the back-end to update the assigned user
+        const response = await fetch('/api/tasks/assign', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user })
+        });
+    
+        // Handle the response
+        if (response.ok) {
+            console.log('Assigned user updated successfully');
+        } else {
+            console.error('An error occurred while updating the assigned user');
+        }
     };
-
-    const handleDateChange = (date) => {
+    
+    const handleDateChange = async (date) => {
+        // Update the state
         setDueDate(date);
+    
+        // Send a request to the back-end to update the due date
+        const response = await fetch('/api/tasks/due-date', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ date })
+        });
+    
+        // Handle the response
+        if (response.ok) {
+            console.log('Due date updated successfully');
+        } else {
+            console.error('An error occurred while updating the due date');
+        }
     };
-
+    
     // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
     if (currentUserId !== allowedUserId) {
         return null;
@@ -36,6 +88,7 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
                         <div className="navbar">
                             <div className="task-assign">
                                 <h3>Task Title</h3>
+                                <h3>{title}</h3>
                             </div>
                         </div>
                     </div>
