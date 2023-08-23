@@ -7,9 +7,11 @@ import LoginPage from "../LoginPage/LoginPage";
 import ProfileAvtar from "../ProfileAvtar/ProfileAvtar";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBarMenu from "../../components/HomePage/SideBarMenu";
+
+import ChatWindow from "../../components/HomePage/ChatWindow/ChatWindow";
+
 import "./App.css";
-import ChatWindow from "../../components/HomePage/ChatWindow";
-import TaskHeader from "../../components/HomePage/TaskHeader";
+import SingleTaskDetails from "../../components/HomePage/SingleTaskDetails";
 
 
 function App() {
@@ -23,7 +25,7 @@ function App() {
             <div class="chat-main-row">
               <div class="chat-main-wrapper">
                 <ChatWindow />
-                <TaskHeader />
+                <SingleTaskDetails />
               </div>
             </div>
           </div>
