@@ -1,13 +1,16 @@
-///src/components/HomePage/SideBarMenu.jsx
+////src/components/HomePage/SideBarMenu.jsx
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'; // SMOHD : imported useDispartch
+import { useDispatch } from 'react-redux';
 import NewListModal from "./NewListModal";
-import EditListModal from "./EditListModal"; // import the new component
+import EditListModal from "./EditListModal";
+import { Modal, Button } from 'react-bootstrap';
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 export default function SideBarMenu() {
-  const [listData, setListData] = useState([]); 
-  const dispatch = useDispatch(); //SMOHD : use dispatch
-  // const [selectedListId, setSelectedListId] = useState(null); // SMOHD : Im tracing the selected list here
+  const [listData, setListData] = useState([]);
+  const [modalShow, setModalShow] = useState(false);
+  const [currentListId, setCurrentListId] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch('/api/lists')
@@ -20,14 +23,30 @@ export default function SideBarMenu() {
   };
 
   const handleDelete = (listId) => {
+    // Close the modal
+    setModalShow(false);
+    // Optimistically update state
+    setListData(prevListData => prevListData.filter(list => list._id !== listId));
+    
     fetch(`/api/lists/${listId}`, { method: 'DELETE' })
-      .then(() => {
-        setListData(prevListData => prevListData.filter(list => list._id !== listId));
+      .catch(() => {
+        // If server operation fails, revert state
+        fetch('/api/lists')
+          .then(response => response.json())
+          .then(data => setListData(data));
       });
+  };
+
+  const openDeleteConfirmationModal = (listId) => {
+    setCurrentListId(listId);
+    setModalShow(true);
   };
 
   const handleEdit = (listId, newName) => {
     if (newName) {
+      // Optimistically update state
+      setListData(prevListData => prevListData.map(list => list._id === listId ? { ...list, name: newName } : list));
+
       fetch(`/api/lists/${listId}`, {
         method: 'PUT',
         headers: {
@@ -37,7 +56,14 @@ export default function SideBarMenu() {
       })
         .then(response => response.json())
         .then(updatedList => {
+          // Update state with server response
           setListData(prevListData => prevListData.map(list => list._id === listId ? updatedList : list));
+        })
+        .catch(() => {
+          // If server operation fails, revert state
+          fetch('/api/lists')
+            .then(response => response.json())
+            .then(data => setListData(data));
         });
     }
   };
@@ -61,18 +87,19 @@ export default function SideBarMenu() {
                 </span>
                 <NewListModal onCreate={handleCreate} />
               </li>
-              {listData.map((item, index) => (
-                <li key={index} className="d-flex justify-content-between align-items-center">
-                  {/* <a onClick={() => { console.log('List clicked:', item._id); setSelectedListId(item._id); }}>{item.name}</a> */}
-                  <a onClick={() => { console.log('List clicked:', item._id); handleListClick(item._id); }}>{item.name}</a>
-                  {/* SMOHD : am i seting the selected list here ? */}
-                  <div>
-                    <button className="btn btn-danger btn-sm me-2" onClick={() => handleDelete(item._id)}>Delete</button>
-                    <button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#edit_list_${item._id}`}>Edit</button>
+              {listData.map((item) => (
+				<li key={item._id} className="d-flex flex-column align-items-center text-center">
+                  <a style={{wordWrap: 'break-word', maxWidth: '100%'}} onClick={() => { console.log('List clicked:', item._id); handleListClick(item._id); }}>{item.name}</a>
+                  <div style={{marginTop: '10px', display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center'}}>
+				  <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '5px', flexWrap: 'wrap'}}>
+                      <button style={{width: '80px', height: '30px', padding: '2px 6px', fontSize: '0.7rem'}} className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#edit_list_${item._id}`}>Edit</button>
+                      <button style={{width: '80px', height: '30px', padding: '2px 6px', fontSize: '0.7rem'}} className="btn btn-danger btn-sm" onClick={() => openDeleteConfirmationModal(item._id)}>Delete</button>
+                    </div>
                     <EditListModal listId={item._id} onEdit={(newName) => handleEdit(item._id, newName)} />
                   </div>
                 </li>
               ))}
+			  <DeleteConfirmationModal show={modalShow} onHide={() => setModalShow(false)} onDelete={() => handleDelete(currentListId)} />
             </ul>
           </div>
         </div>
