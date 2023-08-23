@@ -6,6 +6,7 @@ const Task = require('../../models/task');
 const taskCtrl = require('../../controllers/api/tasks');
 
 router.post('/', taskCtrl.create);
+router.put('/:taskId', taskCtrl.update);
 
 router.get('/', async (req, res) => {
   const { listId } = req.query; // Get the listId from the query parameter

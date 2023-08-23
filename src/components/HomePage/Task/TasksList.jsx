@@ -7,6 +7,28 @@ export default function TasksList({selectedListId}) {
 
   const editableRefs = useRef(Array(tasks.length).fill(null));
 
+  const handleKeyDown = async (event, task, index) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.target.blur(); // Unfocus the element
+      try {
+        const response = await fetch(`/api/tasks/${task._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ title: event.target.textContent }),
+        });
+        if (!response.ok) {
+          throw new Error(`Error updating task. Status: ${response.status}`);
+        }
+        // Update the task title in the local state or context
+      } catch (error) {
+        console.error('Error updating task:', error);
+      }
+    }
+  };
+
 useEffect(() => {
   const fetchTasks = async () => {
     try {
@@ -46,7 +68,8 @@ useEffect(() => {
                   <i className="material-icons">check</i>
                 </span>
               </span>
-              <span className="task-label" contenteditable="true" ref={(element) => (editableRefs.current[index] = element)}>
+              <span className="task-label" contenteditable="true" ref={(element) => (editableRefs.current[index] = element)}
+              onKeyDown={(event) => handleKeyDown(event, task, index)}>
                 {task.title}
               </span>
               
