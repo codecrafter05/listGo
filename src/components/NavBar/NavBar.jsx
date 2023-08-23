@@ -52,7 +52,7 @@ export default function NavBar({ user, setUser }) {
 					</a>
 					<div className="dropdown-menu">
 						<a className="dropdown-item" href="profile.html">My Profile</a>
-						<a className="dropdown-item" href="index.html">Logout</a>
+						<a onClick={handleLogOut} className="dropdown-item" href="index.html">Logout</a>
 					</div>
 				</li>
 			</ul>
@@ -64,7 +64,7 @@ export default function NavBar({ user, setUser }) {
 						className="fa-solid fa-ellipsis-vertical"></i></a>
 				<div className="dropdown-menu dropdown-menu-end">
 					<a className="dropdown-item" href="profile.html">My Profile</a>
-					<a className="dropdown-item" href="index.html">Logout</a>
+					  <a onClick={handleLogOut} className="dropdown-item" href="index.html">Logout</a>
 				</div>
 			</div>
 
