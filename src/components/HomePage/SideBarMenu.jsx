@@ -7,7 +7,7 @@ import { Modal, Button } from 'react-bootstrap';
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import sendRequest from '../../utilities/send-request';
 
-export default function SideBarMenu() {
+export default function SideBarMenu(user) {
   const [listData, setListData] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [currentListId, setCurrentListId] = useState(null);
@@ -86,7 +86,7 @@ useEffect(() => {
 
   return (
     <>
-      <div className="sidebar" id="sidebar">
+     <div className="sidebar" id="sidebar">
         <div className="sidebar-inner slimscroll">
           <div id="sidebar-menu" className="sidebar-menu">
             <ul>
@@ -97,7 +97,7 @@ useEffect(() => {
                   style={{cursor: 'pointer'}}>
                   <i className="fa-solid fa-plus"></i>
                 </span>
-                <NewListModal onCreate={handleCreate} />
+                <NewListModal onCreate={handleCreate} user={user} />
               </li>
               {listData.map((item) => (
 				<li key={item._id} className="d-flex flex-column align-items-center text-center">
