@@ -1,6 +1,7 @@
 //File: src/components/Task/TasksList.jsx
 
 import React, { useState, useEffect, useRef } from 'react';
+import sendRequest from '../../../utilities/send-request';
 
 export default function TasksList({selectedListId, isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId}) {
   const [tasks, setTasks] = useState([]);
@@ -51,11 +52,7 @@ useEffect(() => {
   const fetchTasks = async () => {
     try {
       if (selectedListId !== null) {
-        const response = await fetch(`/api/tasks?listId=${selectedListId}`);
-        if (!response.ok) {
-          throw new Error(`Error fetching tasks. Status: ${response.status}`);
-        }
-        const tasksData = await response.json();
+        const tasksData = await sendRequest(`/api/tasks?listId=${selectedListId}`);
         console.log('Fetched tasks data:', tasksData);
         setTasks(tasksData);
       }
@@ -66,7 +63,8 @@ useEffect(() => {
     }
   };
   fetchTasks();
-}, [selectedListId]); // Include selectedListId in dependency array
+}, [selectedListId]);
+ // Include selectedListId in dependency array
 
   console.log(tasks);
 

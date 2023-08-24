@@ -13,9 +13,11 @@ import SingleTaskDetails from "../../components/HomePage/SingleTaskDetails";
 
 
 function App() {
+
   const [user, setUser] = useState(getUser());
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
+  console.log(user);
 
   return (
     <main className="App">
