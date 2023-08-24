@@ -7,10 +7,11 @@ import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
 import '../../index.css'
 
-export default function SingleTaskDetails({ onRemove, allowedUserId, currentUserId, isDetailsVisible }) {
+export default function SingleTaskDetails({ onRemove, allowedUserId, currentUserId,setIsDetailsVisible, isDetailsVisible }) {
     const [notes, setNotes] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
     const [dueDate, setDueDate] = useState(new Date('Mar 26, 2019'));
+    const toggleDetailsVisibility = () => setIsDetailsVisible(!isDetailsVisible);
 
     const users = [
         { id: 1, name: 'Richard Miles', role: 'Web Developer' },
@@ -36,10 +37,18 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
             <div className={`${isDetailsVisible ? 'sayedshow' : 'sayedhide'} col-lg-5 message-view task-chat-view task-right-sidebar`}>
                 <div className="chat-window">
                     <div className="fixed-header">
+                        <span
+                            title="CloseFullscreen"
+                        >
+                            
+                        </span>
                         <div className="navbar">
-                            <div className="task-assign">
-                                <h3>Task Title</h3>
+                            <div className="float-start me-auto">
+                                
+                                <h3>Task Title</h3> 
+                                
                             </div>
+                            <i className="material-icons-outlined" onClick={toggleDetailsVisibility} >close_fullscreen</i>
                         </div>
                     </div>
                     <div className="chat-contents task-chat-contents">

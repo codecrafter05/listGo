@@ -25,7 +25,7 @@ function App() {
             <div class="chat-main-row">
               <div class="chat-main-wrapper">
                 <ChatWindow isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
-                <SingleTaskDetails isDetailsVisible={isDetailsVisible} />
+                <SingleTaskDetails isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
               </div>
             </div>
           </div>
