@@ -1,5 +1,6 @@
 ///folder:src/HomePage/NewListModal.jsx
 import React, { useState, useRef } from 'react';
+import sendRequest from '../../utilities/send-request';
 
 export default function NewListModal({ onCreate }) {
   const [listName, setListName] = useState('');
@@ -45,18 +46,15 @@ export default function NewListModal({ onCreate }) {
     }
 
     try {
-      const creatorId = '60d3b41f228e21d5a42e92a8'; 
-      const response = await fetch('/api/lists', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const creatorId = '60d3b41f228e21d5a42e92a8'; //hard coded need to change this
+      const response = await sendRequest('/api/lists', 
+        'POST',
+        {
           name: listName,
           members: teamMembers,
           creator: creatorId
-        }),
-      });
+        },
+        );
 
       const data = await response.json();
 

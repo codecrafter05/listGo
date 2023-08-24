@@ -5,6 +5,7 @@ import NewListModal from "./NewListModal";
 import EditListModal from "./EditListModal";
 import { Modal, Button } from 'react-bootstrap';
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import sendRequest from '../../utilities/send-request';
 
 export default function SideBarMenu() {
   const [listData, setListData] = useState([]);
@@ -12,11 +13,18 @@ export default function SideBarMenu() {
   const [currentListId, setCurrentListId] = useState(null);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetch('/api/lists')
-      .then(response => response.json())
-      .then(data => setListData(data));
-  }, []);
+useEffect(() => {
+  const fetchLists = async () => {
+    try {
+      const data = await sendRequest('/api/lists');
+      setListData(data);
+    } catch (error) {
+      console.error('Error fetching lists:', error);
+    }
+  };
+  
+  fetchLists();
+}, []);
 
   const handleCreate = (newList) => {
     setListData(prevListData => [...prevListData, newList]);
@@ -44,28 +52,32 @@ export default function SideBarMenu() {
 
   const handleEdit = (listId, newName) => {
     if (newName) {
-      // Optimistically update state
-      setListData(prevListData => prevListData.map(list => list._id === listId ? { ...list, name: newName } : list));
+  // Optimistically update state
+  setListData(prevListData => prevListData.map(list => list._id === listId ? { ...list, name: newName } : list));
 
-      fetch(`/api/lists/${listId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name: newName }),
-      })
-        .then(response => response.json())
-        .then(updatedList => {
-          // Update state with server response
-          setListData(prevListData => prevListData.map(list => list._id === listId ? updatedList : list));
-        })
-        .catch(() => {
-          // If server operation fails, revert state
-          fetch('/api/lists')
-            .then(response => response.json())
-            .then(data => setListData(data));
-        });
-    }
+  fetch(`/api/lists/${listId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name: newName }),
+  })
+    .then(response => response.json())
+    .then(updatedList => {
+      // Update state with server response
+      setListData(prevListData => prevListData.map(list => list._id === listId ? updatedList : list));
+    })
+    .catch(() => {
+  // If server operation fails, revert state
+  sendRequest('/api/lists')
+    .then(data => setListData(data))
+    .catch(error => {
+      console.error('Error fetching lists:', error);
+    });
+});
+
+}
+
   };
 
   const handleListClick = (listId) => {

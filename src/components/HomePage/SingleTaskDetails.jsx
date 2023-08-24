@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import TaskNotes from './TaskDetails/TaskNotes';
 import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
+import sendRequest from '../../utilities/send-request';
 
 
 export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, currentUserId }) {
@@ -17,42 +18,33 @@ export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, cur
         { id: 3, name: 'Jeffery Lalor', role: 'Team Leader' },
     ];
 
-    useEffect(() => {
-        const fetchTitle = async () => {
-          try {
-            const response = await fetch(`/api/tasks/${taskId}`);
-            if (!response.ok) {
-              throw new Error(`Error fetching task title. Status: ${response.status}`);
-            }
-            const taskData = await response.json();
-            setTitle(taskData.title);
-        } catch (error) {
-            console.log('Error fetching title:', error);
-          }
-        };
-        fetchTitle();
-      }, [taskId]);
+useEffect(() => {
+  const fetchTitle = async () => {
+    try {
+      const taskData = await sendRequest(`/api/tasks/${taskId}`);
+      setTitle(taskData.title);
+    } catch (error) {
+      console.log('Error fetching title:', error);
+    }
+  };
+  fetchTitle();
+}, [taskId]);
+
 
       const handleAssignClick = async (user) => {
-        // Update the state
-        setAssignedUser(user);
-    
-        // Send a request to the back-end to update the assigned user
-        const response = await fetch('/api/tasks/assign', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ user })
-        });
-    
-        // Handle the response
-        if (response.ok) {
-            console.log('Assigned user updated successfully');
-        } else {
-            console.error('An error occurred while updating the assigned user');
-        }
-    };
+  // Update the state
+  setAssignedUser(user);
+
+  try {
+    // Send a request to the back-end to update the assigned user
+    await sendRequest('/api/tasks/assign', 'POST', { user });
+
+    console.log('Assigned user updated successfully');
+  } catch (error) {
+    console.error('An error occurred while updating the assigned user:', error);
+  }
+};
+
     
     const handleDateChange = async (date) => {
         // Update the state
