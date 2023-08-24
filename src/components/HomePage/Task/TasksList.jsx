@@ -78,17 +78,17 @@ useEffect(() => {
     <div className="task-list-body">
       <ul id="task-list">
         {tasks.map((task, index) => (
-          <li className="task" key={task._id}>
+          <li className="task"  key={task._id}>
             <div className="task-container">
               <span className="task-action-btn task-check">
                 <span
                   className="action-circle large complete-btn"
                   title="Mark Complete"
                 >
-                  <i className="material-icons">check</i>
+                  <i className="material-icons" cursor="pointer">check</i>
                 </span>
               </span>
-              <span className="task-label" contentEditable="true" ref={(element) => (editableRefs.current[index] = element)}
+              <span className="task-label" onClick={toggleDetailsVisibility} contentEditable="true" ref={(element) => (editableRefs.current[index] = element)}
               onKeyDown={(event) => handleKeyDown(event, task, index)}>
                 {task.title}
               </span>

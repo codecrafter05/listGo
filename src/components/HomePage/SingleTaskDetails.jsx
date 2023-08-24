@@ -48,7 +48,7 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
                                 <h3>Task Title</h3> 
                                 
                             </div>
-                            <i className="material-icons-outlined" onClick={toggleDetailsVisibility} >close_fullscreen</i>
+                            <div cursor="pointer"><i className="material-icons-outlined" onClick={toggleDetailsVisibility} >close_fullscreen</i></div>
                         </div>
                     </div>
                     <div className="chat-contents task-chat-contents">
