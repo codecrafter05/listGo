@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import TasksList from './TasksList';
 import TasksFooter from './TasksFooter';
 
-export default function TasksContents({selectedListId}) {
+export default function TasksContents({selectedListId, isDetailsVisible, setIsDetailsVisible}) {
     // const [selectedListId, setSelectedListId] = useState(null); // Add selectedListId state
     console.log('Received selectedListId as prop:', selectedListId);
     console.log('TasksContents rendering with selectedListId:', selectedListId);
@@ -15,7 +15,7 @@ export default function TasksContents({selectedListId}) {
                 <div className="chat-wrap-inner">
                     <div className="chat-box">
                         <div className="task-wrapper">
-                            <TasksList selectedListId={selectedListId} /> {/* Pass selectedListId as prop */}
+                            <TasksList selectedListId={selectedListId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
                             <TasksFooter selectedListId={selectedListId} />
                         </div>
                     </div>

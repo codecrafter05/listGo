@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-export default function TasksList({selectedListId}) {
+export default function TasksList({selectedListId, isDetailsVisible, setIsDetailsVisible}) {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const editableRefs = useRef(Array(tasks.length).fill(null));
+  
+  const toggleDetailsVisibility = () => setIsDetailsVisible(!isDetailsVisible);
 
   const handleKeyDown = async (event, task, index) => {
     if (event.key === 'Enter') {
@@ -100,8 +102,12 @@ useEffect(() => {
                   }}>
                   <i className="material-icons">edit</i>
                 </span>
-                <span className="action-circle large" title="visibility">
-                  <i className="material-icons">visibility</i>
+                <span
+                    className="action-circle large"
+                    title="visibility"
+                    onClick={toggleDetailsVisibility} // Call the callback function
+                >
+                    <i className="material-icons">visibility</i>
                 </span>
                 <span
                   className="action-circle large"

@@ -1,11 +1,13 @@
+//file : src\components\HomePage\SingleTaskDetails.jsx
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TaskNotes from './TaskDetails/TaskNotes';
 import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
+import '../../index.css'
 
-export default function SingleTaskDetails({ onRemove, allowedUserId, currentUserId }) {
+export default function SingleTaskDetails({ onRemove, allowedUserId, currentUserId, isDetailsVisible }) {
     const [notes, setNotes] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
     const [dueDate, setDueDate] = useState(new Date('Mar 26, 2019'));
@@ -31,7 +33,7 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
 
     return (
         <>
-            <div className="col-lg-5 message-view task-chat-view task-right-sidebar" id="task_window">
+            <div className={`${isDetailsVisible ? 'sayedshow' : 'sayedhide'} col-lg-5 message-view task-chat-view task-right-sidebar`}>
                 <div className="chat-window">
                     <div className="fixed-header">
                         <div className="navbar">
