@@ -8,7 +8,7 @@ import TaskCommentInput from './TaskDetails/TaskCommentInput';
 import sendRequest from '../../utilities/send-request';
 import '../../index.css'
 
-export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, setIsDetailsVisible }) {
+export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, setIsDetailsVisible, onRemove, handleDateChange }) {
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
@@ -24,14 +24,14 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
 useEffect(() => {
   const fetchTitle = async () => {
     try {
-      const taskData = await sendRequest(`/api/tasks/${taskId}`);
+      const taskData = await sendRequest(`/api/tasks/${selectedTaskId}`);
       setTitle(taskData.title);
     } catch (error) {
       console.log('Error fetching title:', error);
     }
   };
   fetchTitle();
-}, [taskId]);
+}, [selectedTaskId]);
 
 
       const handleAssignClick = async (user) => {
