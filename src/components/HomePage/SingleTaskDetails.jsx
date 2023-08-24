@@ -1,16 +1,18 @@
 //file : src\components\HomePage\SingleTaskDetails.jsx
-import { useState } from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
 import TaskNotes from './TaskDetails/TaskNotes';
 import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
 import '../../index.css'
 
-export default function SingleTaskDetails({ onRemove, allowedUserId, currentUserId,setIsDetailsVisible, isDetailsVisible }) {
+
+export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, currentUserId,setIsDetailsVisible, isDetailsVisible }) {
+    const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
-    const [dueDate, setDueDate] = useState(new Date('Mar 26, 2019'));
+    const [dueDate, setDueDate] = useState(new Date());
     const toggleDetailsVisibility = () => setIsDetailsVisible(!isDetailsVisible);
 
     const users = [
@@ -19,14 +21,64 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
         { id: 3, name: 'Jeffery Lalor', role: 'Team Leader' },
     ];
 
-    const handleAssignClick = (user) => {
-        setAssignedUser(user);
-    };
+    useEffect(() => {
+        const fetchTitle = async () => {
+          try {
+            const response = await fetch(`/api/tasks/${taskId}`);
+            if (!response.ok) {
+              throw new Error(`Error fetching task title. Status: ${response.status}`);
+            }
+            const taskData = await response.json();
+            setTitle(taskData.title);
+        } catch (error) {
+            console.log('Error fetching title:', error);
+          }
+        };
+        fetchTitle();
+      }, [taskId]);
 
-    const handleDateChange = (date) => {
+      const handleAssignClick = async (user) => {
+        // Update the state
+        setAssignedUser(user);
+    
+        // Send a request to the back-end to update the assigned user
+        const response = await fetch('/api/tasks/assign', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user })
+        });
+    
+        // Handle the response
+        if (response.ok) {
+            console.log('Assigned user updated successfully');
+        } else {
+            console.error('An error occurred while updating the assigned user');
+        }
+    };
+    
+    const handleDateChange = async (date) => {
+        // Update the state
         setDueDate(date);
-      };
-      
+    
+        // Send a request to the back-end to update the due date
+        const response = await fetch('/api/tasks/due-date', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ date })
+        });
+    
+        // Handle the response
+        if (response.ok) {
+            console.log('Due date updated successfully');
+        } else {
+            console.error('An error occurred while updating the due date');
+        }
+    };
+    
     // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
     if (currentUserId !== allowedUserId) {
         return null;
@@ -44,9 +96,7 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
                         </span>
                         <div className="navbar">
                             <div className="float-start me-auto">
-                                
-                                <h3>Task Title</h3> 
-                                
+                                <h3>{title}</h3>
                             </div>
                             <div cursor="pointer"><i className="material-icons-outlined" onClick={toggleDetailsVisibility} >close_fullscreen</i></div>
                         </div>
@@ -73,22 +123,22 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
                                                 </span>
                                             </div>
                                             <div className="task-due-date">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#dueDate">
-                                            <div className="due-icon">
-                                            <span>
-                                                <i className="material-icons">date_range</i>
-                                            </span>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#dueDate">
+                                                    <div className="due-icon">
+                                                        <span>
+                                                            <i className="material-icons">date_range</i>
+                                                        </span>
+                                                    </div>
+                                                    <div className="due-info">
+                                                        <div className="task-head-title">Due Date</div>
+                                                        <div className="due-date">{dueDate.toDateString()}</div>
+                                                    </div>
+                                                </a>
+                                                <span className="remove-icon">
+                                                    <i className="fa fa-close"></i>
+                                                </span>
                                             </div>
-                                            <div className="due-info">
-                                            <div className="task-head-title">Due Date</div>
-                                            <div className="due-date">{dueDate.toDateString()}</div>
-                                            </div>
-                                        </a>
-                                        <span className="remove-icon">
-                                            <i className="fa fa-close"></i>
-                                        </span>
                                         </div>
-                                        </div>    
                                         <TaskNotes />
                                         <TaskLog />
                                     </div>
@@ -152,29 +202,31 @@ export default function SingleTaskDetails({ onRemove, allowedUserId, currentUser
             <div id="dueDate" className="modal custom-modal fade" role="dialog">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">Select a Due Date</h5>
-                        <span aria-hidden="true">&times;</span>
-                    </div>
-                    <div className="modal-body">
-                        <div className="input-block mb-3 col-md-6">
-                        <div className="cal-icon">
-                            <DatePicker
-                            className="form-control datetimepicker"
-                            selected={dueDate}
-                            onChange={handleDateChange}
-                            />
+                        <div className="modal-header">
+                            <h5 className="modal-title">Select a Due Date</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div className="modal-body">
+                            <div className="input-block mb-3 col-md-6">
+                                <div className="cal-icon">
+                                    <DatePicker
+                                        className="form-control"
+                                        selected={dueDate}
+                                        onChange={handleDateChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="submit-section">
+                                <button className="btn btn-primary submit-btn" data-bs-dismiss="modal" aria-label="Close">
+                                    Assign
+                                </button>
+                            </div>
                         </div>
-                        <div className="submit-section">
-                        <button className="btn btn-primary submit-btn" data-bs-dismiss="modal" aria-label="Close">
-                            Assign
-                        </button>
-                        </div>
-                    </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </>
 
     );
