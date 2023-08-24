@@ -7,8 +7,7 @@ import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
 import '../../index.css'
 
-
-export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, currentUserId,setIsDetailsVisible, isDetailsVisible }) {
+export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, setIsDetailsVisible }) {
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
@@ -20,11 +19,12 @@ export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, cur
         { id: 2, name: 'John Smith', role: 'Android Developer' },
         { id: 3, name: 'Jeffery Lalor', role: 'Team Leader' },
     ];
-
+console.log(`use Effect in details: ${selectedTaskId}`);
     useEffect(() => {
-        const fetchTitle = async () => {
+        console.log(`use Effect in details: ${selectedTaskId}`);
+        const fetchTask = async () => {
           try {
-            const response = await fetch(`/api/tasks/${taskId}`);
+            const response = await fetch(`/api/tasks/${selectedTaskId}`);
             if (!response.ok) {
               throw new Error(`Error fetching task title. Status: ${response.status}`);
             }
@@ -34,55 +34,55 @@ export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, cur
             console.log('Error fetching title:', error);
           }
         };
-        fetchTitle();
-      }, [taskId]);
+        fetchTask();
+      }, [selectedTaskId]);
 
-      const handleAssignClick = async (user) => {
-        // Update the state
-        setAssignedUser(user);
+    //   const handleAssignClick = async (user) => {
+    //     // Update the state
+    //     setAssignedUser(user);
     
-        // Send a request to the back-end to update the assigned user
-        const response = await fetch('/api/tasks/assign', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ user })
-        });
+    //     // Send a request to the back-end to update the assigned user
+    //     const response = await fetch('/api/tasks/assign', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ user })
+    //     });
     
-        // Handle the response
-        if (response.ok) {
-            console.log('Assigned user updated successfully');
-        } else {
-            console.error('An error occurred while updating the assigned user');
-        }
-    };
+    //     // Handle the response
+    //     if (response.ok) {
+    //         console.log('Assigned user updated successfully');
+    //     } else {
+    //         console.error('An error occurred while updating the assigned user');
+    //     }
+    // };
     
-    const handleDateChange = async (date) => {
-        // Update the state
-        setDueDate(date);
+    // const handleDateChange = async (date) => {
+    //     // Update the state
+    //     setDueDate(date);
     
-        // Send a request to the back-end to update the due date
-        const response = await fetch('/api/tasks/due-date', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ date })
-        });
+    //     // Send a request to the back-end to update the due date
+    //     const response = await fetch('/api/tasks/due-date', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ date })
+    //     });
     
-        // Handle the response
-        if (response.ok) {
-            console.log('Due date updated successfully');
-        } else {
-            console.error('An error occurred while updating the due date');
-        }
-    };
+    //     // Handle the response
+    //     if (response.ok) {
+    //         console.log('Due date updated successfully');
+    //     } else {
+    //         console.error('An error occurred while updating the due date');
+    //     }
+    // };
     
-    // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
-    if (currentUserId !== allowedUserId) {
-        return null;
-    }
+    // // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
+    // if (currentUserId !== allowedUserId) {
+    //     return null;
+    // }
 
     return (
         <>

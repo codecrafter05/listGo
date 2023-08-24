@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
-export default function TasksList({selectedListId, isDetailsVisible, setIsDetailsVisible}) {
+export default function TasksList({selectedListId, isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId}) {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const editableRefs = useRef(Array(tasks.length).fill(null));
@@ -105,7 +105,10 @@ useEffect(() => {
                 <span
                     className="action-circle large"
                     title="visibility"
-                    onClick={toggleDetailsVisibility} // Call the callback function
+                    onClick={() => {
+                      setSelectedTaskId(task._id); // Set the selected task ID
+                      toggleDetailsVisibility(); // Call the callback function
+                    }}
                 >
                     <i className="material-icons">visibility</i>
                 </span>
