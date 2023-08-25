@@ -29,6 +29,7 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                 console.log(`selected task is in useEffect singletaskdetails: ${JSON.stringify(selectedTaskId)}`);
                 console.log(`/ api / tasks / ${selectedTaskId}`);
                 const response = await sendRequest(`/api/tasks/${selectedTaskId}`);
+                console.log(`our response SingleTaskDetails: ${JSON.stringify(response)}`);
                 setTitle(response.title);
                 setStatus(response.status);
                 // Update other state variables...
@@ -111,7 +112,7 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                                         <h4>Task Details </h4>
                                         <div className="task-header">
                                             <div className="assignee-info">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#assignee">
+                                                <a data-bs-toggle="modal" data-bs-target="#assignee">
                                                     <div className="avatar">
                                                         <img src="assets/img/profiles/avatar-02.jpg" alt="User Image" />
                                                     </div>
