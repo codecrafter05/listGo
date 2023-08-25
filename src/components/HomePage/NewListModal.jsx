@@ -8,7 +8,7 @@ export default function NewListModal({ onCreate, user }) {
   const [isOpen, setIsOpen] = useState(true);
   const memberInputRef = useRef(null);
 
-  console.log(`user inside NewListModal : ${JSON.stringify(user)}`);
+  // console.log(`user inside NewListModal : ${JSON.stringify(user)}`);
 
   const handleAddMember = async (e) => {
     if (e.key === 'Enter') {
