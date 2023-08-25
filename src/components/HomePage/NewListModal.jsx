@@ -59,7 +59,7 @@ export default function NewListModal({ onCreate, user }) {
     console.log('teamMembers:', teamMembers);
 
     try {
-      const creatorId = user.user._id;
+      const creatorId = user._id;
       console.log('creatorId:', creatorId);
 
       const data = await sendRequest('/api/lists',
@@ -77,7 +77,7 @@ export default function NewListModal({ onCreate, user }) {
       setIsOpen(false);
 
     } catch (err) {
-      console.log("error is here");
+      console.log("error is here handleSubmit NewListModal");
       console.error(err);
     }
 
