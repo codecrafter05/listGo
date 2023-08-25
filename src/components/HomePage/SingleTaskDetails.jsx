@@ -28,12 +28,10 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
             try {
                 console.log(`selected task is in useeffects singletaskdetails: ${JSON.stringify(selectedTaskId)}`);
                 const response = await sendRequest(`/api/tasks/${selectedTaskId}`);
-                console.log(`single task details response: ${response}`)
                 setTitle(response.title);
                 setStatus(response.status);
                 // Update other state variables...
             } catch (error) {
-                console.log('single task details response:', response);
                 console.log('Error fetching task details:', error);
             }
         };
