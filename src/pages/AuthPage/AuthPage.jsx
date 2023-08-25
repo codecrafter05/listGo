@@ -1,4 +1,4 @@
-// file: src\pages\AuthPage\AuthPage2.jsx
+// file: src\pages\AuthPage\AuthPage.jsx
 import { useState } from 'react';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
@@ -25,12 +25,12 @@ export default function AuthPage({ setUser }) {
                     {showSignUp ? (
                       <p>
                         Already have an account?{' '}
-                        <a onClick={() => setShowSignUp(false)}>Login</a>
+                        <a href='#' onClick={() => setShowSignUp(false)}>Login</a>
                       </p>
                     ) : (
                       <p>
                         Don't have an account yet?{' '}
-                        <a onClick={() => setShowSignUp(true)}>Register</a>
+                        <a href='#' onClick={() => setShowSignUp(true)}>Register</a>
                       </p>
                     )}
                   </div>
