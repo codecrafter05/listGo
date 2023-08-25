@@ -69,7 +69,7 @@ export default function TasksFooter({ selectedListId, formSubmitted, setFormSubm
             onChange={handleNewTaskChange}
             onKeyDown={handleNewTaskChange}
           ></textarea>
-          <button type="submit" className="add-new-task-btn btn" id="add-task">
+          <button type="submit" className="add-new-task-btn btn">
             Add Task
           </button>
           <span className="btn" id="close-task-panel">

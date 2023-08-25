@@ -32,21 +32,21 @@
 			}
 			else{
 				var todoListScrollHeight = $('.task-list-body').prop('scrollHeight');
-				// Make a new task template
-				var newTemplate = $(taskTemplate).clone();
-				// update the task label in the new template
-				newTemplate.find('.task-label').text(newTask);
-				// Add new class to the template
-				newTemplate.addClass('new');
-				// Remove complete class in the new Template in case it is present
-				newTemplate.removeClass('completed');
-				//Append the new template to todo list
-				$('#task-list').append(newTemplate);
+				// // Make a new task template
+				// var newTemplate = $(taskTemplate).clone();
+				// // update the task label in the new template
+				// newTemplate.find('.task-label').text(newTask);
+				// // Add new class to the template
+				// newTemplate.addClass('new');
+				// // Remove complete class in the new Template in case it is present
+				// newTemplate.removeClass('completed');
+				// //Append the new template to todo list
+				// $('#task-list').append(newTemplate);
 				// Clear the text in textarea
 				$('#new-task').val('');
-				// As a new task is added, hide the mark all tasks as incomplete button & show the mark all finished button
-				$('#mark-all-finished').removeClass('move-up');
-				$('#mark-all-incomplete').addClass('move-down');
+				// // As a new task is added, hide the mark all tasks as incomplete button & show the mark all finished button
+				// $('#mark-all-finished').removeClass('move-up');
+				// $('#mark-all-incomplete').addClass('move-down');
 				// Show notification
 				updateNotification(newTask, 'added to list');
 				// Smoothly scroll the todo list to the end
