@@ -3,8 +3,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import TaskNotes from './TaskDetails/TaskNotes';
-import TaskLog from './TaskDetails/TaskLog';
-import TaskCommentInput from './TaskDetails/TaskCommentInput';
+import TaskComments from './TaskDetails/TaskComments';
+// import TaskCommentInput from './TaskDetails/TaskCommentInput';
 import sendRequest from '../../utilities/send-request';
 import '../../index.css'
 
@@ -143,13 +143,13 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                                             </div>
                                         </div>
                                         <TaskNotes />
-                                        <TaskLog />
+                                        <TaskComments />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <TaskCommentInput />
+                    {/* <TaskCommentInput /> */}
                 </div>
             </div>
 
