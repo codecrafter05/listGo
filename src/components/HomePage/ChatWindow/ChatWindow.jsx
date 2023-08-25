@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import TasksContents from '../Task/TasksContents';
 import { useSelector } from 'react-redux';
 
-export default function ChatWindow() {
+export default function ChatWindow({isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId}) {
     const selectedListId = useSelector(state => state.selectedListId);
     console.log('ChatWindow rendering');
 
@@ -52,7 +52,7 @@ export default function ChatWindow() {
                         </ul>
                     </div>
                 </div>
-                <TasksContents selectedListId={selectedListId} />
+                <TasksContents selectedListId={selectedListId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} selectedTaskId={selectedTaskId} setSelectedTaskId={setSelectedTaskId} />
             </div>
         </div>
         </>

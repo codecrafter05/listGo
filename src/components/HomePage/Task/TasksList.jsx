@@ -3,10 +3,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import sendRequest from '../../../utilities/send-request';
 
-export default function TasksList({selectedListId}) {
+export default function TasksList({selectedListId, isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId}) {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const editableRefs = useRef(Array(tasks.length).fill(null));
+  
+  const toggleDetailsVisibility = () => setIsDetailsVisible(!isDetailsVisible);
 
   const handleKeyDown = async (event, task, index) => {
     if (event.key === 'Enter') {
@@ -74,17 +76,17 @@ useEffect(() => {
     <div className="task-list-body">
       <ul id="task-list">
         {tasks.map((task, index) => (
-          <li className="task" key={task._id}>
+          <li className="task"  key={task._id}>
             <div className="task-container">
               <span className="task-action-btn task-check">
                 <span
                   className="action-circle large complete-btn"
                   title="Mark Complete"
                 >
-                  <i className="material-icons">check</i>
+                  <i className="material-icons" cursor="pointer">check</i>
                 </span>
               </span>
-              <span className="task-label" contentEditable="true" ref={(element) => (editableRefs.current[index] = element)}
+              <span className="task-label" onClick={toggleDetailsVisibility} contentEditable="true" ref={(element) => (editableRefs.current[index] = element)}
               onKeyDown={(event) => handleKeyDown(event, task, index)}>
                 {task.title}
               </span>
@@ -98,8 +100,16 @@ useEffect(() => {
                   }}>
                   <i className="material-icons">edit</i>
                 </span>
-                <span className="action-circle large" title="visibility">
-                  <i className="material-icons">visibility</i>
+                <span
+                    className="action-circle large"
+                    title="visibility"
+                  onClick={() => {
+                    console.log(`visibility: this task id ${task.id}`);
+                      setSelectedTaskId(task._id); // Set the selected task ID
+                      toggleDetailsVisibility(); // Call the callback function
+                    }}
+                >
+                    <i className="material-icons">visibility</i>
                 </span>
                 <span
                   className="action-circle large"

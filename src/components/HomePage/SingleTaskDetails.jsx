@@ -1,3 +1,4 @@
+//file : src\components\HomePage\SingleTaskDetails.jsx
 import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
@@ -5,12 +6,16 @@ import TaskNotes from './TaskDetails/TaskNotes';
 import TaskLog from './TaskDetails/TaskLog';
 import TaskCommentInput from './TaskDetails/TaskCommentInput';
 import sendRequest from '../../utilities/send-request';
+import '../../index.css'
 
-
-export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, currentUserId }) {
+export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, setIsDetailsVisible, onRemove }) {
     const [title, setTitle] = useState('');
+    const [status, setStatus] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
+    const [notes, setNotes] = useState('');
     const [dueDate, setDueDate] = useState(new Date());
+    const [comments, setComments] = useState([]);
+    const toggleDetailsVisibility = () => setIsDetailsVisible(!isDetailsVisible);
 
     const users = [
         { id: 1, name: 'Richard Miles', role: 'Web Developer' },
@@ -18,17 +23,19 @@ export default function SingleTaskDetails({ taskId, onRemove, allowedUserId, cur
         { id: 3, name: 'Jeffery Lalor', role: 'Team Leader' },
     ];
 
-useEffect(() => {
-  const fetchTitle = async () => {
-    try {
-      const taskData = await sendRequest(`/api/tasks/${taskId}`);
-      setTitle(taskData.title);
-    } catch (error) {
-      console.log('Error fetching title:', error);
-    }
-  };
-  fetchTitle();
-}, [taskId]);
+    useEffect(() => {
+        const fetchTaskDetails = async () => {
+            try {
+                const response = await sendRequest(`/api/tasks/${selectedTaskId}`);
+                setTitle(response.title);
+                setStatus(response.status);
+                // Update other state variables...
+            } catch (error) {
+                console.log('Error fetching task details:', error);
+            }
+        };
+        fetchTaskDetails();
+    }, [selectedTaskId]);
 
 
       const handleAssignClick = async (user) => {
@@ -67,21 +74,26 @@ useEffect(() => {
         }
     };
     
-    // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
-    if (currentUserId !== allowedUserId) {
-        return null;
-    }
+    // // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
+    // if (currentUserId !== allowedUserId) {
+    //     return null;
+    // }
 
     return (
         <>
-            <div className="col-lg-5 message-view task-chat-view task-right-sidebar" id="task_window">
+            <div className={`${isDetailsVisible ? 'sayedshow' : 'sayedhide'} col-lg-5 message-view task-chat-view task-right-sidebar`}>
                 <div className="chat-window">
                     <div className="fixed-header">
+                        <span
+                            title="CloseFullscreen"
+                        >
+                            
+                        </span>
                         <div className="navbar">
-                            <div className="task-assign">
-                                <h3>Task Title</h3>
+                            <div className="float-start me-auto">
                                 <h3>{title}</h3>
                             </div>
+                            <div cursor="pointer"><i className="material-icons-outlined" onClick={toggleDetailsVisibility} >close_fullscreen</i></div>
                         </div>
                     </div>
                     <div className="chat-contents task-chat-contents">
