@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-export default function TasksFooter({ selectedListId }) {
+export default function TasksFooter({ selectedListId, formSubmitted, setFormSubmitted }) {
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
   const handleAddTask = async () => {
@@ -22,12 +22,22 @@ export default function TasksFooter({ selectedListId }) {
         }),
       });
 
+      console.log(`formSubmitted before setting inside handleSubmit event: ${formSubmitted}`);
+      setFormSubmitted(formSubmitted + 1);
+
+      console.log(`tasks: ${JSON.stringify(response)}`)
+
       if (!response.ok) {
         throw new Error(`Error adding task. Status: ${response.status}`);
       }
 
       // Clear the input field after successful submission
       setNewTaskTitle("");
+
+      // if (handleReRender) {
+      //   handleReRender();
+      // }
+
     } catch (error) {
       console.log("Error adding task:", error);
     }
@@ -37,6 +47,7 @@ export default function TasksFooter({ selectedListId }) {
     event.preventDefault();
     handleAddTask();
   };
+
 
   const handleNewTaskChange = (event) => {
     if (event.key === 'Enter') {
@@ -58,7 +69,7 @@ export default function TasksFooter({ selectedListId }) {
             onChange={handleNewTaskChange}
             onKeyDown={handleNewTaskChange}
           ></textarea>
-          <button type="submit" className="add-new-task-btn btn" id="add-task">
+          <button type="submit" className="add-new-task-btn btn">
             Add Task
           </button>
           <span className="btn" id="close-task-panel">

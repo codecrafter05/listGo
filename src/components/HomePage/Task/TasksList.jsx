@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import sendRequest from '../../../utilities/send-request';
 
-export default function TasksList({ selectedListId, isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId }) {
+export default function TasksList({ selectedListId, isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId, formSubmitted }) {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const editableRefs = useRef(Array(tasks.length).fill(null));
@@ -86,7 +86,7 @@ export default function TasksList({ selectedListId, isDetailsVisible, setIsDetai
       }
     };
     fetchTasks();
-  }, [selectedListId]);
+  }, [selectedListId, formSubmitted]);
   // Include selectedListId in dependency array
 
   console.log(tasks);
@@ -138,8 +138,9 @@ export default function TasksList({ selectedListId, isDetailsVisible, setIsDetai
                   className="action-circle large"
                   title="visibility"
                   onClick={() => {
-                    console.log(`visibility: this task id ${task.id}`);
+                    console.log(`visibility: this task id ${task._id}`);
                     setSelectedTaskId(task._id); // Set the selected task ID
+                    console.log(`SelectedTaskId is ${selectedTaskId}`);
                     toggleDetailsVisibility(); // Call the callback function
                   }}
                 >
