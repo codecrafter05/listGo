@@ -1,3 +1,4 @@
+//file: src/pages/App.jsx
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { getUser } from "../../utilities/users-service";
@@ -5,28 +6,33 @@ import AuthPage from "../AuthPage/AuthPage";
 import ProfileAvtar from "../ProfileAvtar/ProfileAvtar";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBarMenu from "../../components/HomePage/SideBarMenu";
-import ChatWindow from "../../components/HomePage/ChatWindow/ChatWindow";
+import MainAppWindow from "../../components/HomePage/MainAppWindow";
+
+
+
 import "./App.css";
-import SingleTaskDetails from "../../components/HomePage/SingleTaskDetails";
+
 
 function App() {
+
+  console.log('App rendering');
+
   const [user, setUser] = useState(getUser());
-  console.log(user);
+  const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const [selectedListId, setSelectedListId] = useState(null);
+
+  console.log(`user logged insind app function: ${user}`);
+  console.log('Initial isDetailsVisible:', isDetailsVisible);
+  console.log('Initial selectedTaskId:', selectedTaskId);
 
   return (
     <main className="App">
       {user ? (
         <>
-          <div className="page-wrapper">
-            <div className="chat-main-row">
-              <div className="chat-main-wrapper">
-                <ChatWindow />
-                <SingleTaskDetails />
-              </div>
-            </div>
-          </div>
+          <MainAppWindow selectedListId={selectedListId} selectedTaskId={selectedTaskId} setSelectedTaskId={setSelectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
           <NavBar user={user} setUser={setUser} />
-          <SideBarMenu user={user} />
+          <SideBarMenu selectedListId={selectedListId} setSelectedListId={setSelectedListId} />
           <Routes>
             {/* Route components in here */}
             <Route path="/profile/new" element={<ProfileAvtar />} />

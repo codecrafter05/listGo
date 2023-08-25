@@ -2,8 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux'; // Import the Provider
-import store from './store'; // Adjust the path to your Redux store
 import './index.css';
 import App from './pages/App/App';
 // import reportWebVitals from './reportWebVitals';
@@ -11,11 +9,9 @@ import App from './pages/App/App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
       <Router>
         <App />
       </Router>
-    </Provider>
   </React.StrictMode>
 );
 
