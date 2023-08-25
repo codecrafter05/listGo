@@ -39,6 +39,7 @@ async function editList(req, res) {
 
 async function getAll(req, res) {
   try {
+    console.log(`user: ${req.user}`);
     const lists = await List.find({});
     res.status(200).json(lists);
   } catch (err) {
