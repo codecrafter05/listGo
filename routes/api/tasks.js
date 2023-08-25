@@ -8,6 +8,7 @@ const taskCtrl = require('../../controllers/api/tasks');
 router.post('/', taskCtrl.create);
 router.put('/:taskId', taskCtrl.update);
 router.delete('/:taskId', taskCtrl.remove);
+router.get('/:taskId', taskCtrl.get);
 
 // router.delete('/:id', listsCtrl.delete); // Route for deleting a list
 

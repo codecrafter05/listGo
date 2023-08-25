@@ -26,7 +26,8 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
     useEffect(() => {
         const fetchTaskDetails = async () => {
             try {
-                console.log(`selected task is in useeffects singletaskdetails: ${JSON.stringify(selectedTaskId)}`);
+                console.log(`selected task is in useEffect singletaskdetails: ${JSON.stringify(selectedTaskId)}`);
+                console.log(`/ api / tasks / ${selectedTaskId}`);
                 const response = await sendRequest(`/api/tasks/${selectedTaskId}`);
                 setTitle(response.title);
                 setStatus(response.status);

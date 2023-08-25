@@ -1,11 +1,13 @@
 //file controller/task.js
 
+const { async } = require('q');
 const Task = require('../../models/task');
 
 module.exports = {
   create,
   update,
   remove,
+  get,
 };
 
 async function create(req, res) {
@@ -43,6 +45,26 @@ async function remove(req, res) {
     res.status(500).json(err);
   }
 }
+
+async function get(req, res) {
+  try {
+    const taskId = req.params.taskId;
+    console.log(`Fetching task with ID: ${taskId}`);
+    
+    const task = await Task.findOne({ _id: taskId });
+    console.log(`Fetched task details: ${JSON.stringify(task)}`);
+    
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+    
+    return res.status(200).json(task);
+  } catch (error) {
+    console.error('Error fetching task:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
 
 // async function deleteList(req, res) {
 //   try {
