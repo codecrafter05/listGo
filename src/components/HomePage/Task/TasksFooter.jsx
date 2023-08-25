@@ -5,10 +5,6 @@ import React, { useState } from "react";
 export default function TasksFooter({ selectedListId }) {
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
-  const handleNewTaskChange = (event) => {
-    setNewTaskTitle(event.target.value);
-  };
-
   const handleAddTask = async () => {
     if (newTaskTitle.trim() === "") {
       return;
@@ -37,22 +33,39 @@ export default function TasksFooter({ selectedListId }) {
     }
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleAddTask();
+  };
+
+  const handleNewTaskChange = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent new lines and form submission
+      handleAddTask(); // Call your handleAddTask function
+    } else {
+      setNewTaskTitle(event.target.value);
+    }
+  };
+
   return (
     <div className="task-list-footer">
-      <div className="new-task-wrapper">
-        <textarea
-          id="new-task"
-          placeholder="Enter new task here. . ."
-          value={newTaskTitle}
-          onChange={handleNewTaskChange}
-        ></textarea>
-        <span className="add-new-task-btn btn" id="add-task" onClick={handleAddTask}>
-          Add Task
-        </span>
-        <span className="btn" id="close-task-panel">
-          Close
-        </span>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="new-task-wrapper">
+          <textarea
+            id="new-task"
+            placeholder="Enter new task here. . ."
+            value={newTaskTitle}
+            onChange={handleNewTaskChange}
+            onKeyDown={handleNewTaskChange}
+          ></textarea>
+          <button type="submit" className="add-new-task-btn btn" id="add-task">
+            Add Task
+          </button>
+          <span className="btn" id="close-task-panel">
+            Close
+          </span>
+        </div>
+      </form>
     </div>
   );
 }
