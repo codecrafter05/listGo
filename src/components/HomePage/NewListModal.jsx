@@ -141,7 +141,7 @@ export default function NewListModal({ onCreate, user }) {
                 display: 'flex',
                 justifyContent: 'center'
               }}>
-                <button type="submit" className="btn btn-primary submit-btn responsive-btn" style={{ width: '120px', height: '50px' }}>Submit</button>
+                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Submit</button>
               </div>
             </form>
           </div>
