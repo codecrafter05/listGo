@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../../models/user');
-const Workspace = require('../../models/workspace');
+
 
 module.exports = {
   create,
@@ -27,21 +27,6 @@ async function login(req, res) {
 
 async function create(req, res) {
   try {
-    // if workspace is provided
-    if (req.body.workspace) {
-      const workspace = await Workspace.findById(req.body.workspace);
-      if (!workspace) {
-        throw new Error('Workspace not found');
-      }
-
-      // if the user is the admin of the workspace
-      if (workspace.admin.toString() === req.user._id.toString()) {
-        req.body.role = 'admin';
-      } else {
-        req.body.role = 'user';
-      }
-    }
-
     const user = await User.create(req.body);
     const token = createJWT(user);
     // The token is a string, but yes, we can
