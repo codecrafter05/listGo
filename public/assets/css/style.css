@@ -1633,7 +1633,7 @@ a.bg-danger:focus, a.bg-danger:hover, button.bg-danger:focus, button.bg-danger:h
   position: relative;
   transition: all 0.2s ease-in-out;
   margin: 0 0 0 230px;
-  padding: 60px 0 0;
+  padding: 53px 0 0;
 }
 @media (max-width: 991px) {
   .page-wrapper {
