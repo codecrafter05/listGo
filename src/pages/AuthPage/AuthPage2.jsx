@@ -8,7 +8,6 @@ export default function AuthPage({ setUser }) {
   return (
     <>
       <div className="account-page">
-        <button onClick={() => setShowSignUp(!showSignUp)}>{showSignUp ? 'Log In' : 'Sign Up'}</button>
         <div className="main-wrapper">
           <div className="account-content">
             <div className="container">
