@@ -7,7 +7,7 @@ export default function AuthPage({ setUser }) {
   const [showSignUp, setShowSignUp] = useState(false);
   return (
     <>
-      <body className="account-page">
+      <div className="account-page">
         <button onClick={() => setShowSignUp(!showSignUp)}>{showSignUp ? 'Log In' : 'Sign Up'}</button>
         <div className="main-wrapper">
           <div className="account-content">
@@ -34,14 +34,13 @@ export default function AuthPage({ setUser }) {
                         <a onClick={() => setShowSignUp(true)}>Register</a>
                       </p>
                     )}
-                    {/* <p className="error-message">&nbsp;{error}</p> */}
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </body>
+      </div>
     </>
   );
 }
