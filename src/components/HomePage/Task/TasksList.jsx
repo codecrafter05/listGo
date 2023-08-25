@@ -138,8 +138,9 @@ export default function TasksList({ selectedListId, isDetailsVisible, setIsDetai
                   className="action-circle large"
                   title="visibility"
                   onClick={() => {
-                    console.log(`visibility: this task id ${task.id}`);
+                    console.log(`visibility: this task id ${task._id}`);
                     setSelectedTaskId(task._id); // Set the selected task ID
+                    console.log(`SelectedTaskId is ${selectedTaskId}`);
                     toggleDetailsVisibility(); // Call the callback function
                   }}
                 >

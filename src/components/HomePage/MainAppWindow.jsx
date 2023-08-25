@@ -9,7 +9,7 @@ export default function SideBarMenu({ selectedListId, selectedTaskId, setSelecte
                 <div className="chat-main-row">
                     <div className="chat-main-wrapper">
                         <ChatWindow selectedListId={selectedListId} selectedTaskId={selectedTaskId} setSelectedTaskId={setSelectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
-                        <SingleTaskDetails selectedTaskId={selectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
+                        <SingleTaskDetails setSelectedTaskId={setSelectedTaskId} selectedTaskId={selectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
                     </div>
                 </div>
             </div>

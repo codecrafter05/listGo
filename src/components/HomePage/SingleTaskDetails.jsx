@@ -8,7 +8,7 @@ import TaskCommentInput from './TaskDetails/TaskCommentInput';
 import sendRequest from '../../utilities/send-request';
 import '../../index.css'
 
-export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, setIsDetailsVisible, onRemove }) {
+export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, isDetailsVisible, setIsDetailsVisible, onRemove }) {
     const [title, setTitle] = useState('');
     const [status, setStatus] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
@@ -26,11 +26,14 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
     useEffect(() => {
         const fetchTaskDetails = async () => {
             try {
+                console.log(`selected task is in useeffects singletaskdetails: ${JSON.stringify(selectedTaskId)}`);
                 const response = await sendRequest(`/api/tasks/${selectedTaskId}`);
+                console.log(`single task details response: ${response}`)
                 setTitle(response.title);
                 setStatus(response.status);
                 // Update other state variables...
             } catch (error) {
+                console.log('single task details response:', response);
                 console.log('Error fetching task details:', error);
             }
         };
@@ -93,7 +96,12 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
                             <div className="float-start me-auto">
                                 <h3>{title}</h3>
                             </div>
-                            <div cursor="pointer"><i className="material-icons-outlined" onClick={toggleDetailsVisibility} >close_fullscreen</i></div>
+                            <div cursor="pointer"><i className="material-icons-outlined"
+                                onClick={() => {
+                                    toggleDetailsVisibility();
+                                    // setSelectedTaskId(null); // Set selected task ID to null
+                                }}
+                            >close_fullscreen</i></div>
                         </div>
                     </div>
                     <div className="chat-contents task-chat-contents">
