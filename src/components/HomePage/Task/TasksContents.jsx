@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import TasksList from './TasksList';
 import TasksFooter from './TasksFooter';
 
-export default function TasksContents({selectedListId, isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId}) {
+export default function TasksContents({ selectedListId, isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId }) {
     // const [selectedListId, setSelectedListId] = useState(null); // Add selectedListId state
     console.log('Received selectedListId as prop:', selectedListId);
     console.log('TasksContents rendering with selectedListId:', selectedListId);

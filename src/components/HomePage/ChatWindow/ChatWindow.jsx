@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import TasksContents from '../Task/TasksContents';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
-export default function ChatWindow({ isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId }) {
-    const selectedListId = useSelector(state => state.selectedListId);
+export default function ChatWindow({ selectedListId, isDetailsVisible, setIsDetailsVisible, selectedTaskId, setSelectedTaskId }) {
+    // const selectedListId = useSelector(state => state.selectedListId);
     console.log('ChatWindow rendering');
 
     return (
