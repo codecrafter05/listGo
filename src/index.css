@@ -1,0 +1,7 @@
+.chat-main-row .chat-main-wrapper .sayedshow {
+    display: table-cell;
+}
+
+.chat-main-row .chat-main-wrapper .sayedhide {
+    display: none;
+}

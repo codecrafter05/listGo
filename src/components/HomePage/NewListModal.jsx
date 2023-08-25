@@ -1,10 +1,10 @@
 ///folder:src/HomePage/NewListModal.jsx
 import React, { useState, useRef } from 'react';
+import sendRequest from '../../utilities/send-request';
 
 export default function NewListModal({ onCreate }) {
   const [listName, setListName] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
-  const [dueDate, setDueDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(true);
   const memberInputRef = useRef(null);
 
@@ -26,7 +26,6 @@ export default function NewListModal({ onCreate }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('handleSubmit called');
 
     if (listName.trim() === '' ) {
       alert('Both fields are required!');
@@ -34,25 +33,20 @@ export default function NewListModal({ onCreate }) {
     }
 
     try {
-      const creatorId = '60d3b41f228e21d5a42e92a8'; // replace this with the actual creator's ObjectId
-      const response = await fetch('/api/lists', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const creatorId = '60d3b41f228e21d5a42e92a8'; //hard coded need to change this
+      const response = await sendRequest('/api/lists', 
+        'POST',
+        {
           name: listName,
           members: teamMembers,
-          due_date: dueDate,
           creator: creatorId
-        }),
-      });
+        },
+        );
 
       const data = await response.json();
-      console.log(data);
 
       onCreate(data);
-      setIsOpen(false); // Close the modal
+      setIsOpen(false);
 
     } catch (err) {
       console.error(err);
@@ -60,10 +54,8 @@ export default function NewListModal({ onCreate }) {
 
     setListName('');
     setTeamMembers([]);
-    setDueDate(new Date());
   };
 
-  // If isOpen is false, return null (don't render anything)
   if (!isOpen) {
     return null;
   }
@@ -74,7 +66,7 @@ export default function NewListModal({ onCreate }) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Add a List</h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" className="btn-close responsive-btn" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -84,7 +76,7 @@ export default function NewListModal({ onCreate }) {
                 <div className="col-sm-12">
                   <div className="input-block mb-3">
                     <label className="col-form-label">List Name</label>
-                    <input className="form-control" type="text" value={listName} onChange={(e) => setListName(e.target.value)} />
+                    <input className="form-control" type="text" value={listName} onChange={(e) => setListName(e.target.value)} maxLength={17} />
                   </div>
                 </div>
                 <div className="col-sm-6">
@@ -92,7 +84,14 @@ export default function NewListModal({ onCreate }) {
                     <label className="col-form-label">Add Team Member</label>
                     <div className="input-group">
                       <input ref={memberInputRef} className="form-control" type="text" onKeyPress={handleAddMember} />
-                      <button className="btn btn-primary" type="button" onClick={addMember}>Add</button>
+                      <button className="btn btn-primary responsive-btn" type="button" onClick={addMember} style={{
+                        width: '80px',
+                        height: '40px',
+                        display: 'block',
+                        margin: '10px auto'
+                      }}>
+                        Add
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -108,15 +107,12 @@ export default function NewListModal({ onCreate }) {
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-12">
-                  <div className="input-block mb-3">
-                    <label className="col-form-label">Due Date</label>
-                    <input className="form-control" type="date" value={dueDate.toISOString().split('T')[0]} onChange={(e) => setDueDate(new Date(e.target.value))} />
-                  </div>
-                </div>
               </div>
-              <div className="submit-section">
-                <button type="submit" className="btn btn-primary submit-btn">Submit</button>
+              <div className="submit-section" style={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}>
+                <button type="submit" className="btn btn-primary submit-btn responsive-btn" style={{ width: '120px', height: '50px' }}>Submit</button>
               </div>
             </form>
           </div>

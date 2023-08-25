@@ -15,7 +15,11 @@ import SingleTaskDetails from "../../components/HomePage/SingleTaskDetails";
 
 
 function App() {
+
   const [user, setUser] = useState(getUser());
+  const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
+  console.log(user);
 
   return (
     <main className="App">
@@ -24,8 +28,8 @@ function App() {
           <div class="page-wrapper">
             <div class="chat-main-row">
               <div class="chat-main-wrapper">
-                <ChatWindow />
-                <SingleTaskDetails />
+                <ChatWindow selectedTaskId={selectedTaskId} setSelectedTaskId={setSelectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
+                <SingleTaskDetails selectedTaskId={selectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
               </div>
             </div>
           </div>
