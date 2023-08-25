@@ -12,7 +12,9 @@ async function create(req, res) {
   try {
     const list = await List.create(req.body);
     res.status(201).json(list);
+    console.log("list create controller is working");
   } catch (err) {
+    console.log("list create controller error");
     res.status(500).json(err);
   }
 }
@@ -39,8 +41,12 @@ async function editList(req, res) {
 
 async function getAll(req, res) {
   try {
-    console.log(`user: ${req.user}`);
-    const lists = await List.find({});
+    const lists = await List.find({
+      $or: [
+        { creator: req.user._id },
+        { members: req.user._id }
+      ]
+    });
     res.status(200).json(lists);
   } catch (err) {
     res.status(500).json(err);

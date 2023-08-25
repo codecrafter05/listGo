@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import sendRequest from '../../utilities/send-request';
 
-export default function NewListModal({ onCreate }) {
+export default function NewListModal({ onCreate, user }) {
   const [listName, setListName] = useState('');
   const [teamMembers, setTeamMembers] = useState([]);
   const [isOpen, setIsOpen] = useState(true);
@@ -26,6 +26,11 @@ export default function NewListModal({ onCreate }) {
           },
           body: JSON.stringify({ email: value }),
         });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+  
         const data = await response.json();
         const memberId = data.id;
         setTeamMembers(prevMembers => [...prevMembers, memberId]);
@@ -39,32 +44,41 @@ export default function NewListModal({ onCreate }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('handleSubmit called');
+    console.log('user:', user);
 
+  
     if (listName.trim() === '' ) {
-      alert('Both fields are required!');
+      alert('name field is required!');
       return;
     }
-
+  
+    console.log('listName:', listName);
+    console.log('teamMembers:', teamMembers);
+  
     try {
-      const creatorId = '60d3b41f228e21d5a42e92a8'; //hard coded need to change this
-      const response = await sendRequest('/api/lists', 
+      const creatorId = user.user._id;
+      console.log('creatorId:', creatorId);
+  
+      const data = await sendRequest('/api/lists', 
         'POST',
         {
           name: listName,
           members: teamMembers,
-          creator: creatorId
+          creator: creatorId,
         },
-        );
-
-      const data = await response.json();
-
+      );
+  
+      console.log('data from sendRequest:', data);
+  
       onCreate(data);
       setIsOpen(false);
-
+  
     } catch (err) {
+      console.log("error is here");
       console.error(err);
     }
-
+  
     setListName('');
     setTeamMembers([]);
   };

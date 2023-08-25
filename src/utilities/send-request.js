@@ -20,8 +20,16 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
     }
 
     const res = await fetch(url, options);
-    // res.ok will be false if the status code set to 4xx in the controller action
+    // res.ok will be false if the status code set to 4xx or 5xx
     if (res.ok) return res.json();
-    throw new Error('Bad Request');
+
+    // Throw a more specific error based on the response status
+    switch (res.status) {
+      case 400: throw new Error('Bad Request');
+      case 401: throw new Error('Unauthorized');
+      case 403: throw new Error('Forbidden');
+      case 404: throw new Error('Not Found');
+      case 500: throw new Error('Internal Server Error');
+      default: throw new Error('Unknown Error');
+    }
 }
-  
