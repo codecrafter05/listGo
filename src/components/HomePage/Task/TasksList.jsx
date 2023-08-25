@@ -103,7 +103,8 @@ useEffect(() => {
                 <span
                     className="action-circle large"
                     title="visibility"
-                    onClick={() => {
+                  onClick={() => {
+                    console.log(`visibility: this task id ${task.id}`);
                       setSelectedTaskId(task._id); // Set the selected task ID
                       toggleDetailsVisibility(); // Call the callback function
                     }}

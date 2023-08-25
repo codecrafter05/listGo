@@ -8,11 +8,13 @@ import TaskCommentInput from './TaskDetails/TaskCommentInput';
 import sendRequest from '../../utilities/send-request';
 import '../../index.css'
 
-export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, setIsDetailsVisible, onRemove, handleDateChange }) {
+export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, setIsDetailsVisible, onRemove }) {
     const [title, setTitle] = useState('');
-    const [notes, setNotes] = useState('');
+    const [status, setStatus] = useState('');
     const [assignedUser, setAssignedUser] = useState(null);
+    const [notes, setNotes] = useState('');
     const [dueDate, setDueDate] = useState(new Date());
+    const [comments, setComments] = useState([]);
     const toggleDetailsVisibility = () => setIsDetailsVisible(!isDetailsVisible);
 
     const users = [
@@ -21,17 +23,19 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
         { id: 3, name: 'Jeffery Lalor', role: 'Team Leader' },
     ];
 
-useEffect(() => {
-  const fetchTitle = async () => {
-    try {
-      const taskData = await sendRequest(`/api/tasks/${selectedTaskId}`);
-      setTitle(taskData.title);
-    } catch (error) {
-      console.log('Error fetching title:', error);
-    }
-  };
-  fetchTitle();
-}, [selectedTaskId]);
+    useEffect(() => {
+        const fetchTaskDetails = async () => {
+            try {
+                const response = await sendRequest(`/api/tasks/${selectedTaskId}`);
+                setTitle(response.title);
+                setStatus(response.status);
+                // Update other state variables...
+            } catch (error) {
+                console.log('Error fetching task details:', error);
+            }
+        };
+        fetchTaskDetails();
+    }, [selectedTaskId]);
 
 
       const handleAssignClick = async (user) => {
@@ -49,26 +53,26 @@ useEffect(() => {
 };
 
     
-    // const handleDateChange = async (date) => {
-    //     // Update the state
-    //     setDueDate(date);
+    const handleDateChange = async (date) => {
+        // Update the state
+        setDueDate(date);
     
-    //     // Send a request to the back-end to update the due date
-    //     const response = await fetch('/api/tasks/due-date', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ date })
-    //     });
+        // Send a request to the back-end to update the due date
+        const response = await fetch('/api/tasks/due-date', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ date })
+        });
     
-    //     // Handle the response
-    //     if (response.ok) {
-    //         console.log('Due date updated successfully');
-    //     } else {
-    //         console.error('An error occurred while updating the due date');
-    //     }
-    // };
+        // Handle the response
+        if (response.ok) {
+            console.log('Due date updated successfully');
+        } else {
+            console.error('An error occurred while updating the due date');
+        }
+    };
     
     // // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
     // if (currentUserId !== allowedUserId) {
