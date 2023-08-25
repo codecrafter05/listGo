@@ -1,23 +1,42 @@
-document.addEventListener("DOMContentLoaded", function() {
+// file public\assets\js\theme-settings.js
+document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("reactDOMContentLoaded", function () {
+// Now you can safely run your code
 !(function () {
-    var i,
-        c,
-        e,
-        b,
-        j,
-        o,
-        f,
-        g,
-        k,
-        d,
-        p,
-        q,
-        a,
-        E,
-        y,
-        I,
-        z = document.querySelector(".sidebar").innerHTML;
-        l = localStorage.getItem("language");
+    // Check if the .sidebar element exists
+    var sidebarElement = document.querySelector(".sidebar");
+    if (sidebarElement) {
+        try {
+            var i,
+                c,
+                e,
+                b,
+                j,
+                o,
+                f,
+                g,
+                k,
+                d,
+                p,
+                q,
+                a,
+                E,
+                y,
+                I,
+                z = sidebarElement.innerHTML;
+            var l = localStorage.getItem("language");
+
+            // Log relevant elements and variables
+            console.log("Value of z:", z);
+            console.log("Value of l:", l);
+
+            // Rest of your code...
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    } else {
+        console.error(".sidebar element not found");
+    }
     function r(a) {
         var b;
         document.getElementById("header-lang-img") &&
@@ -833,5 +852,5 @@ document.addEventListener("DOMContentLoaded", function() {
             y && clearTimeout(y), (y = setTimeout(I, 2e3));
         });
 })();
-
+});
 });
