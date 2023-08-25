@@ -38,25 +38,25 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
     }, [selectedTaskId]);
 
 
-      const handleAssignClick = async (user) => {
-  // Update the state
-  setAssignedUser(user);
+    const handleAssignClick = async (user) => {
+        // Update the state
+        setAssignedUser(user);
 
-  try {
-    // Send a request to the back-end to update the assigned user
-    await sendRequest('/api/tasks/assign', 'POST', { user });
+        try {
+            // Send a request to the back-end to update the assigned user
+            await sendRequest('/api/tasks/assign', 'POST', { user });
 
-    console.log('Assigned user updated successfully');
-  } catch (error) {
-    console.error('An error occurred while updating the assigned user:', error);
-  }
-};
+            console.log('Assigned user updated successfully');
+        } catch (error) {
+            console.error('An error occurred while updating the assigned user:', error);
+        }
+    };
 
-    
+
     const handleDateChange = async (date) => {
         // Update the state
         setDueDate(date);
-    
+
         // Send a request to the back-end to update the due date
         const response = await fetch('/api/tasks/due-date', {
             method: 'POST',
@@ -65,7 +65,7 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
             },
             body: JSON.stringify({ date })
         });
-    
+
         // Handle the response
         if (response.ok) {
             console.log('Due date updated successfully');
@@ -73,7 +73,7 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
             console.error('An error occurred while updating the due date');
         }
     };
-    
+
     // // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
     // if (currentUserId !== allowedUserId) {
     //     return null;
@@ -87,7 +87,7 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
                         <span
                             title="CloseFullscreen"
                         >
-                            
+
                         </span>
                         <div className="navbar">
                             <div className="float-start me-auto">
@@ -199,7 +199,7 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Select a Due Date</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

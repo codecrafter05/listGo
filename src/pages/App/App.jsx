@@ -24,9 +24,9 @@ function App() {
     <main className="App">
       {user ? (
         <>
-          <div class="page-wrapper">
-            <div class="chat-main-row">
-              <div class="chat-main-wrapper">
+          <div className="page-wrapper">
+            <div className="chat-main-row">
+              <div className="chat-main-wrapper">
                 <ChatWindow selectedTaskId={selectedTaskId} setSelectedTaskId={setSelectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
                 <SingleTaskDetails selectedTaskId={selectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
               </div>
