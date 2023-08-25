@@ -485,47 +485,47 @@ $(document).ready(function() {
 		$(".hidden-links").addClass("hidden");
 	});
 	
-	// Add Product
-	$("#addProduct").on('click',function(e){
-		const tableBody = $('#addTable tbody');
-        const rowCount = tableBody.find('tr').length + 1;
-	var addTable = `<tr><td>${rowCount}</td><td><input class="form-control" type="text" style="min-width:150px"></td>
-	  	<td><input class="form-control" type="text" style="min-width:150px"></td>
-		<td><input class="form-control" style="width:100px" type="text"></td>
-		<td><input class="form-control" style="width:80px" type="text"></td>
-		<td><input class="form-control" readonly style="width:120px" type="text"></td>
-		<td><a href="javascript:void(0)" class="text-danger font-18 remove" title="Remove"><i class="fa-regular fa-trash-can"></i></a></td></tr>`; 
-		$('tbody.tbodyone').append(addTable);
-		e.preventDefault();
-  	});
+	// // Add Product
+	// $("#addProduct").on('click',function(e){
+	// 	const tableBody = $('#addTable tbody');
+    //     const rowCount = tableBody.find('tr').length + 1;
+	// var addTable = `<tr><td>${rowCount}</td><td><input class="form-control" type="text" style="min-width:150px"></td>
+	//   	<td><input class="form-control" type="text" style="min-width:150px"></td>
+	// 	<td><input class="form-control" style="width:100px" type="text"></td>
+	// 	<td><input class="form-control" style="width:80px" type="text"></td>
+	// 	<td><input class="form-control" readonly style="width:120px" type="text"></td>
+	// 	<td><a href="javascript:void(0)" class="text-danger font-18 remove" title="Remove"><i class="fa-regular fa-trash-can"></i></a></td></tr>`; 
+	// 	$('tbody.tbodyone').append(addTable);
+	// 	e.preventDefault();
+  	// });
 
 	// Add Edit Product 
 	
-	$("#addEditProduct").on('click',function(e){
-		const tableBody = $('#editTable tbody');
-        const rowCount = tableBody.find('tr').length + 1;
-		var editAddTable = `<tr><td>${rowCount}</td>
-	<td>
-		<input class="form-control" type="text" value="Vehicle Module" style="min-width:150px">
-	</td>
-	<td>
-		<input class="form-control" type="text" value="Create, edit delete functionlity" style="min-width:150px">
-	</td>
-	<td>
-		<input class="form-control" style="width:100px" type="text" value="112">
-	</td>
-	<td>
-		<input class="form-control" style="width:80px" type="text" value="1">
-	</td>
-	<td>
-		<input class="form-control" readonly style="width:120px" type="text" value="112">
-	</td>
-	<td>
-		<a href="javascript:void(0)" class="text-danger font-18 remove" title="Remove"><i class="fa-regular fa-trash-can"></i></a>
-	</td></tr>`;
-		$('tbody.tbodyone').append(editAddTable);
-		e.preventDefault();
-  	});
+	// $("#addEditProduct").on('click',function(e){
+	// 	const tableBody = $('#editTable tbody');
+    //     const rowCount = tableBody.find('tr').length + 1;
+	// 	var editAddTable = `<tr><td>${rowCount}</td>
+	// <td>
+	// 	<input class="form-control" type="text" value="Vehicle Module" style="min-width:150px">
+	// </td>
+	// <td>
+	// 	<input class="form-control" type="text" value="Create, edit delete functionlity" style="min-width:150px">
+	// </td>
+	// <td>
+	// 	<input class="form-control" style="width:100px" type="text" value="112">
+	// </td>
+	// <td>
+	// 	<input class="form-control" style="width:80px" type="text" value="1">
+	// </td>
+	// <td>
+	// 	<input class="form-control" readonly style="width:120px" type="text" value="112">
+	// </td>
+	// <td>
+	// 	<a href="javascript:void(0)" class="text-danger font-18 remove" title="Remove"><i class="fa-regular fa-trash-can"></i></a>
+	// </td></tr>`;
+	// 	$('tbody.tbodyone').append(editAddTable);
+	// 	e.preventDefault();
+  	// });
   
   $(document).on('click','.remove',function(){
 	  $(this).parents('tr').remove();
