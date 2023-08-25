@@ -5,16 +5,6 @@ const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 6;
 
 const userSchema = new Schema({
-  // existing fields
-  role: {
-    type: String,
-    enum: ['admin', 'user'],
-    default: 'admin'
-  },
-  workspace: {
-    type: Schema.Types.ObjectId,
-    ref: 'Workspace'
-  },
   name: { type: String, required: true },
   email: {
     type: String,
