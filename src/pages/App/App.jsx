@@ -13,7 +13,6 @@ import MainAppWindow from "../../components/HomePage/MainAppWindow";
 import "./App.css";
 
 
-
 function App() {
 
   console.log('App rendering');
@@ -23,7 +22,7 @@ function App() {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [selectedListId, setSelectedListId] = useState(null);
 
-  console.log(`user logged insind app function: ${user}`);
+  console.log(`user logged insind app function: ${JSON.stringify(user)}`);
   console.log('Initial isDetailsVisible:', isDetailsVisible);
   console.log('Initial selectedTaskId:', selectedTaskId);
 
@@ -33,7 +32,7 @@ function App() {
         <>
           <MainAppWindow selectedListId={selectedListId} selectedTaskId={selectedTaskId} setSelectedTaskId={setSelectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
           <NavBar user={user} setUser={setUser} />
-          <SideBarMenu selectedListId={selectedListId} setSelectedListId={setSelectedListId} />
+          <SideBarMenu user={user} selectedListId={selectedListId} setSelectedListId={setSelectedListId} />
           <Routes>
             {/* Route components in here */}
             <Route path="/profile/new" element={<ProfileAvtar />} />

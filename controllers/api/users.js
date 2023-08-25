@@ -1,11 +1,14 @@
+// controllers/api/users.js
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../../models/user');
+
 
 module.exports = {
   create,
   login,
   checkToken,
+  emailToId, // Added this line
 };
 
 async function login(req, res) {
@@ -20,6 +23,7 @@ async function login(req, res) {
     res.status(400).json('Bad Credentials');
   }
 }
+
 
 async function create(req, res) {
   try {
@@ -37,6 +41,17 @@ function checkToken(req, res) {
   // req.user will always be there for you when a token is sent
   console.log('req.user', req.user);
   res.json(req.exp);
+}
+
+// New function for email to user ID conversion
+async function emailToId(req, res) {
+  try {
+    const user = await User.findOne({email: req.body.email});
+    if (!user) throw new Error('User not found');
+    res.json({ id: user._id });
+  } catch (err) {
+    res.status(400).json('Bad Request');
+  }
 }
 
 /*-- Helper Functions --*/
