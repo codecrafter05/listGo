@@ -141,7 +141,7 @@ export default function SingleTaskDetails({ selectedTaskId, isDetailsVisible, se
                             </div>
                         </div>
                     </div>
-                    <TaskCommentInput />
+                    {/* <TaskCommentInput /> */}
                 </div>
             </div>
 
