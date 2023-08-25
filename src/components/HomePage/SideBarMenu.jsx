@@ -6,7 +6,7 @@ import EditListModal from "./EditListModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import sendRequest from '../../utilities/send-request';
 
-export default function SideBarMenu(user, selectedListId, setSelectedListId) {
+export default function SideBarMenu({ user, selectedListId, setSelectedListId }) {
   const [listData, setListData] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [currentListId, setCurrentListId] = useState(null);
