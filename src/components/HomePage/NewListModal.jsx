@@ -8,6 +8,8 @@ export default function NewListModal({ onCreate, user }) {
   const [isOpen, setIsOpen] = useState(true);
   const memberInputRef = useRef(null);
 
+  console.log(`user inside NewListModal : ${JSON.stringify(user)}`);
+
   const handleAddMember = async (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -26,11 +28,11 @@ export default function NewListModal({ onCreate, user }) {
           },
           body: JSON.stringify({ email: value }),
         });
-  
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-  
+
         const data = await response.json();
         const memberId = data.id;
         setTeamMembers(prevMembers => [...prevMembers, memberId]);
@@ -47,20 +49,20 @@ export default function NewListModal({ onCreate, user }) {
     console.log('handleSubmit called');
     console.log('user:', user);
 
-  
-    if (listName.trim() === '' ) {
+
+    if (listName.trim() === '') {
       alert('name field is required!');
       return;
     }
-  
+
     console.log('listName:', listName);
     console.log('teamMembers:', teamMembers);
-  
+
     try {
       const creatorId = user.user._id;
       console.log('creatorId:', creatorId);
-  
-      const data = await sendRequest('/api/lists', 
+
+      const data = await sendRequest('/api/lists',
         'POST',
         {
           name: listName,
@@ -68,17 +70,17 @@ export default function NewListModal({ onCreate, user }) {
           creator: creatorId,
         },
       );
-  
+
       console.log('data from sendRequest:', data);
-  
+
       onCreate(data);
       setIsOpen(false);
-  
+
     } catch (err) {
       console.log("error is here");
       console.error(err);
     }
-  
+
     setListName('');
     setTeamMembers([]);
   };

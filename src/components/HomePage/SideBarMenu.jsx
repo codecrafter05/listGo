@@ -3,15 +3,18 @@ import React, { useState, useEffect } from 'react';
 // import { useDispatch } from 'react-redux';
 import NewListModal from "./NewListModal";
 import EditListModal from "./EditListModal";
-import { Modal, Button } from 'react-bootstrap';
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import sendRequest from '../../utilities/send-request';
 
-export default function SideBarMenu(user, { selectedListId, setSelectedListId }) {
+export default function SideBarMenu(user, selectedListId, setSelectedListId) {
   const [listData, setListData] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [currentListId, setCurrentListId] = useState(null);
   // const dispatch = useDispatch();
+
+  const handleCreate = (newList) => {
+    setListData(prevListData => [...prevListData, newList]);
+  };
 
   useEffect(() => {
     const fetchLists = async () => {
@@ -26,9 +29,6 @@ export default function SideBarMenu(user, { selectedListId, setSelectedListId })
     fetchLists();
   }, []);
 
-  const handleCreate = (newList) => {
-    setListData(prevListData => [...prevListData, newList]);
-  };
 
   const handleDelete = (listId) => {
     // Close the modal
@@ -80,9 +80,6 @@ export default function SideBarMenu(user, { selectedListId, setSelectedListId })
 
   };
 
-  // const handleListClick = (listId) => {
-  //   dispatch({ type: 'SET_SELECTED_LIST', payload: listId });
-  // };
 
   const handleListClick = (listId) => {
     setSelectedListId(listId); // Update the local state with the selected list ID
