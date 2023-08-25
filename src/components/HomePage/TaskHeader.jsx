@@ -7,7 +7,9 @@ export default function TaskHeader() {
           <div className="fixed-header">
             <div className="navbar">
               <div className="task-assign">
-                <a className="task-complete-btn" id="task_complete" href="javascript:void(0);">
+                <a className="task-complete-btn" id="task_complete"
+                // href="javascript:void(0);"
+                >
                   <i className="material-icons">check</i> Mark Complete
                 </a>
               </div>
@@ -16,8 +18,12 @@ export default function TaskHeader() {
                   <a href="" className="dropdown-toggle" data-bs-toggle="dropdown"
                     aria-expanded="false"><i className="material-icons">more_vert</i></a>
                   <div className="dropdown-menu dropdown-menu-end custom-dropdown-menu">
-                    <a className="dropdown-item" href="javascript:void(0)">Delete Task</a>
-                    <a className="dropdown-item" href="javascript:void(0)">Settings</a>
+                    <a className="dropdown-item"
+                    // href="javascript:void(0)"
+                    >Delete Task</a>
+                    <a className="dropdown-item"
+                    // href="javascript:void(0)"
+                    >Settings</a>
                   </div>
                 </li>
               </ul>
