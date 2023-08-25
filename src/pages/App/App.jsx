@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { getUser } from "../../utilities/users-service";
-import AuthPage from "../AuthPage/AuthPage";
+import AuthPage2 from "../AuthPage/AuthPage2";
 import LoginPage from "../LoginPage/LoginPage";
 import ProfileAvtar from "../ProfileAvtar/ProfileAvtar";
 import NavBar from "../../components/NavBar/NavBar";
@@ -41,8 +41,8 @@ function App() {
           </Routes>
         </>
       ) : (
-          <LoginPage />
-        // <AuthPage setUser={setUser} />
+         // <LoginPage />
+         <AuthPage2 setUser={setUser} />
       )}
     </main>
   );

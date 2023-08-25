@@ -28,17 +28,53 @@ export default function LoginForm({ setUser }) {
   }
 
   return (
-    <div>
-      <div className="form-container">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
-          <label>Password</label>
-          <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-          <button type="submit">LOG IN</button>
-        </form>
-      </div>
-      <p className="error-message">&nbsp;{error}</p>
-    </div>
+<>
+    <body className="account-page">
+	
+        <div className="main-wrapper">
+			<div className="account-content">
+				<div className="container">
+				
+					<div className="account-logo">
+						<a href="admin-dashboard.html"><img src="assets/img/logo2.png" alt="Dreamguy's Technologies"></img></a>
+					</div>
+					
+					<div className="account-box">
+						<div className="account-wrapper">
+							<h3 className="account-title">Login</h3>
+							<p className="account-subtitle">Access to our dashboard</p>
+							
+							<form autoComplete="off" onSubmit={handleSubmit}>
+								<div className="input-block mb-4">
+									<label className="col-form-label">Email Address</label>
+									<input  type="text" name="email" className="form-control" value={credentials.email} onChange={handleChange} required></input>
+								</div>
+								<div className="input-block mb-4">
+									<div className="row align-items-center">
+										<div className="col">
+											<label className="col-form-label">Password</label>
+										</div>
+									</div>
+									<div className="position-relative">
+										<input  type="password" name="password" value={credentials.password} onChange={handleChange} required  className="form-control" id="password"></input>
+										<span className="fa-solid fa-eye-slash" id="toggle-password"></span>
+									</div>
+								</div>
+								<div className="input-block mb-4 text-center">
+									<button type="submit" className="btn btn-primary account-btn">Login</button>
+								</div>
+								<div className="account-footer">
+                  <p>Don't have an account yet? <a href="register.html">Register</a></p>
+                  <p className="error-message">&nbsp;{error}</p>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>	
+    </body>
+</>
   );
 }
+
