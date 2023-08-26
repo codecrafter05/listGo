@@ -1,3 +1,4 @@
+// file: models/user.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
@@ -18,7 +19,9 @@ const userSchema = new Schema({
     trim: true,
     minlength: 3,
     required: true
-  }
+  },
+  jobTitle: { type: String, required: false },  // Add this line
+  image: { type: String, required: false },  // And this line
 }, {
   timestamps: true,
   toJSON: {

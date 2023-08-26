@@ -1,20 +1,16 @@
 //file: src/pages/App.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { getUser } from "../../utilities/users-service";
+import { getUser, logOut } from "../../utilities/users-service";
 import AuthPage from "../AuthPage/AuthPage";
-import ProfileAvtar from "../ProfileAvtar/ProfileAvtar";
+import Profile from "../../components/ProfilePage/profile";
 import NavBar from "../../components/NavBar/NavBar";
 import SideBarMenu from "../../components/HomePage/SideBarMenu";
 import MainAppWindow from "../../components/HomePage/MainAppWindow";
 
-
-
 import "./App.css";
 
-
 function App() {
-
   console.log('App rendering');
 
   const [user, setUser] = useState(getUser());
@@ -22,20 +18,24 @@ function App() {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [selectedListId, setSelectedListId] = useState(null);
 
-  console.log(`user logged insind app function: ${JSON.stringify(user)}`);
+  console.log(`user logged in inside app function: ${JSON.stringify(user)}`);
   console.log('Initial isDetailsVisible:', isDetailsVisible);
   console.log('Initial selectedTaskId:', selectedTaskId);
+
+  const handleLogout = () => {
+    logOut();
+    setUser(null);
+  };
 
   return (
     <main className="App">
       {user ? (
         <>
-          <MainAppWindow selectedListId={selectedListId} selectedTaskId={selectedTaskId} setSelectedTaskId={setSelectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />
-          <NavBar user={user} setUser={setUser} />
+          <NavBar user={user} handleLogout={handleLogout} />
           <SideBarMenu user={user} selectedListId={selectedListId} setSelectedListId={setSelectedListId} />
           <Routes>
-            {/* Route components in here */}
-            <Route path="/profile/new" element={<ProfileAvtar />} />
+            <Route path="/" element={<MainAppWindow selectedListId={selectedListId} selectedTaskId={selectedTaskId} setSelectedTaskId={setSelectedTaskId} isDetailsVisible={isDetailsVisible} setIsDetailsVisible={setIsDetailsVisible} />} />
+            <Route path="/profile" element={<Profile user={user} />} />
           </Routes>
         </>
       ) : (

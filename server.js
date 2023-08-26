@@ -5,7 +5,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 // const bodyParser = require('body-parser');
-const comments = require('./routes/api/comments');
+// const comments = require('./routes/api/comments');
 
 require('dotenv').config();
 // Connect to db after the dotenv above
@@ -30,6 +30,7 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/tasks', require('./routes/api/tasks'));
 app.use('/api/lists', require('./routes/api/lists'));
 app.use('/api/comments', require('./routes/api/comments'));
+app.use('/api/profiles', require('./routes/api/profiles')); 
 
 // "catch-all" route that will match all GET requests
 // that don't match an API route defined above
