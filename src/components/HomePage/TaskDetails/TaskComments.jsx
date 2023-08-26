@@ -1,5 +1,6 @@
 // file: src/components/TaskDetails/TaskComments.jsx
 import { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 
 export default function TaskLog() {
     const [text, setText] = useState('');
@@ -43,6 +44,12 @@ export default function TaskLog() {
         }
     }
 
+    const handleDeleteButtonClick = (index) => {
+        const newComments = comments.filter((_, commentIndex) => commentIndex !== index);
+        setComments(newComments);
+        localStorage.setItem('comments', JSON.stringify(newComments));
+    }
+
     return (
         <>
             <hr className="task-line"></hr><br />
@@ -54,6 +61,7 @@ export default function TaskLog() {
                                 <span className="task-chat-user">{comment.author}</span> 
                                 <span className="chat-time">{comment.date}</span>
                                 <p>{comment.text}</p>
+                                <Button variant="danger" size="sm" onClick={() => handleDeleteButtonClick(index)}>Delete</Button>
                             </div>
                         </div>
                     </div>
