@@ -8,13 +8,14 @@ import TaskComments from './TaskDetails/TaskComments';
 import sendRequest from '../../utilities/send-request';
 import '../../index.css'
 
-export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, isDetailsVisible, setIsDetailsVisible, onRemove }) {
+export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, isDetailsVisible, setIsDetailsVisible }) {
     const [title, setTitle] = useState('');
     const [status, setStatus] = useState('');
-    const [assignedUser, setAssignedUser] = useState(null);
+    const [assignedUser, setAssignedUser] = useState('');
     const [notes, setNotes] = useState('');
-    const [dueDate, setDueDate] = useState(new Date());
+    const [dueDate, setDueDate] = useState(null);
     const [comments, setComments] = useState([]);
+    // const [members, setMembers] = useState([]);
     const toggleDetailsVisibility = () => setIsDetailsVisible(!isDetailsVisible);
 
     const users = [
@@ -32,10 +33,27 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                 console.log(`our response SingleTaskDetails: ${JSON.stringify(response)}`);
                 setTitle(response.title);
                 setStatus(response.status);
-                setAssignedUser(response.assignedUser);
+                if (response.assignedTo) {
+                    try {
+                        const assignedUserName = await sendRequest(`/api/users/${response.assignedTo}`);
+                        setAssignedUser(assignedUserName);
+                    } catch (error) {
+                        console.log('Error fetching assignedTo name:', error);
+                    }
+                } else {
+                    setAssignedUser({});
+                }
                 setNotes(response.notes);
                 setComments(response.comments);
+                // setMembers(response.members);
                 // Update other state variables...
+                console.log(`Set task details in SingleTaskDetails JSX: 
+                    Title: ${title}
+                    Status: ${status}
+                    Assigned User: ${assignedUser}
+                    Notes: ${notes}
+                    Comments: ${JSON.stringify(comments)}
+                `);
             } catch (error) {
                 console.log('Error fetching task details:', error);
             }
@@ -49,12 +67,21 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
         setAssignedUser(user);
 
         try {
-            // Send a request to the back-end to update the assigned user
-            await sendRequest('/api/tasks/assign', 'POST', { user });
+            const response = await fetch(`/api/tasks/${selectedTaskId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ assignedTo: user })
+            });
 
-            console.log('Assigned user updated successfully');
+            if (response.ok) {
+                console.log('Assigned user updated successfully');
+            } else {
+                console.error('An error occurred while updating the assigned user');
+            }
         } catch (error) {
-            console.error('An error occurred while updating the assigned user:', error);
+            console.error('An error occurred:', error);
         }
     };
 
@@ -63,22 +90,25 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
         // Update the state
         setDueDate(date);
 
-        // Send a request to the back-end to update the due date
-        const response = await fetch('/api/tasks/due-date', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ date })
-        });
+        try {
+            const response = await fetch(`/api/tasks/${selectedTaskId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ due_date: date })
+            });
 
-        // Handle the response
-        if (response.ok) {
-            console.log('Due date updated successfully');
-        } else {
-            console.error('An error occurred while updating the due date');
+            if (response.ok) {
+                console.log('Due date updated successfully');
+            } else {
+                console.error('An error occurred while updating the due date');
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
         }
     };
+
 
     // // to check if the current user’s ID matches the allowed user’s ID before rendering the component. 
     // if (currentUserId !== allowedUserId) {
@@ -121,10 +151,10 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                                                     </div>
                                                     <div className="assigned-info">
                                                         <div className="task-head-title">Assigned To</div>
-                                                        <div className="task-assignee">{assignedUser || 'None'}</div>
+                                                        <div className="task-assignee">{assignedUser ? assignedUser.name : 'None'}</div>
                                                     </div>
                                                 </a>
-                                                <span className="remove-icon" onClick={onRemove}>
+                                                <span className="remove-icon">
                                                     <i className="fa fa-close"></i>
                                                 </span>
                                             </div>
@@ -137,7 +167,7 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                                                     </div>
                                                     <div className="due-info">
                                                         <div className="task-head-title">Due Date</div>
-                                                        <div className="due-date">{dueDate.toDateString()}</div>
+                                                        <div className="due-date">{dueDate instanceof Date ? dueDate.toDateString() : 'None'}</div>
                                                     </div>
                                                 </a>
                                                 <span className="remove-icon">

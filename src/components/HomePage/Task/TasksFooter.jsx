@@ -19,6 +19,11 @@ export default function TasksFooter({ selectedListId, formSubmitted, setFormSubm
         body: JSON.stringify({
           title: newTaskTitle,
           list: selectedListId,
+          status: "todo",
+          assignedTo: null,
+          due_date: NaN,
+          notes: " ",
+          comments: []
         }),
       });
 

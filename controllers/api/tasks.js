@@ -21,8 +21,9 @@ async function create(req, res) {
 
 async function update(req, res) {
   const { taskId } = req.params;
+  const updateFields = req.body;
   try {
-    const updatedTask = await Task.findByIdAndUpdate(taskId, { title: req.body.title }, { new: true });
+    const updatedTask = await Task.findByIdAndUpdate(taskId, updateFields, { new: true });
     res.json(updatedTask);
   } catch (error) {
     res.status(500).json(error);
@@ -49,10 +50,10 @@ async function remove(req, res) {
 async function get(req, res) {
   try {
     const taskId = req.params.taskId;
-    console.log(`Fetching task with ID: ${taskId}`);
+    console.log(`Fetching task in task controllers with ID: ${taskId}`);
     
     const task = await Task.findOne({ _id: taskId });
-    console.log(`Fetched task details: ${JSON.stringify(task)}`);
+    console.log(`Fetched task details in controller: ${JSON.stringify(task)}`);
     
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
