@@ -1,17 +1,24 @@
 // file: src/components/TaskDetails/TaskComments.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 
 export default function TaskLog() {
-
     const [text, setText] = useState('');
     const [comments, setComments] = useState([]);
+
+    // Load comments from local storage when component mounts
+    useEffect(() => {
+        const storedComments = JSON.parse(localStorage.getItem('comments'));
+        if (storedComments) {
+            setComments(storedComments);
+        }
+    }, []);
 
     const handleTextChange = (event) => {
         setText(event.target.value);
     }
 
     const handleButtonClick = async () => {
-        // Send a request to the back-end to save the new comment
         const response = await fetch('/api/comments', {
             method: 'POST',
             headers: {
@@ -20,46 +27,46 @@ export default function TaskLog() {
             body: JSON.stringify({ text })
         });
 
-        // Handle the response
         if (response.ok) {
-            // Update the state
-            setComments([...comments, text]);
+            const date = new Date();
+            const comment = {
+                text,
+                author: 'You',
+                date: date.toLocaleString()
+            };
+
+            const newComments = [...comments, comment];
+            setComments(newComments);
             setText('');
+            localStorage.setItem('comments', JSON.stringify(newComments)); // Store comments in local storage
         } else {
             console.error('An error occurred while saving the comment');
         }
     }
 
+    const handleDeleteButtonClick = (index) => {
+        const newComments = comments.filter((_, commentIndex) => commentIndex !== index);
+        setComments(newComments);
+        localStorage.setItem('comments', JSON.stringify(newComments));
+    }
+
     return (
         <>
             <hr className="task-line"></hr><br />
-
-            <div className="chat chat-left">
-                <div className="chat-avatar">
-                    <a href="profile.html" className="avatar">
-                        <img src="assets/img/profiles/avatar-02.jpg"
-                            alt="User Image"></img>
-                    </a>
-                </div>
-                <div className="chat-body">
-                    <div className="chat-bubble">
-                        <div className="chat-content">
-                            <span className="task-chat-user">Username1</span> <span
-                                className="chat-time">Today at 10:30am</span>
-                            <p>YOU ARE NOT DONE YET!!</p>
+            {comments.map((comment, index) => (
+                <div key={index} className="chat chat-left">
+                    <div className="chat-body">
+                        <div className="chat-bubble">
+                            <div className="chat-content">
+                                <span className="task-chat-user">{comment.author}</span> 
+                                <span className="chat-time">{comment.date}</span>
+                                <p>{comment.text}</p>
+                                <Button variant="danger" size="sm" onClick={() => handleDeleteButtonClick(index)}>Delete</Button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-            <ul>
-                {comments.map(comment => (
-                    <li key={comment}>{comment}</li>
-                ))}
-            </ul>
-
-
+            ))}
             <div className="chat-footer">
                 <div className="message-bar">
                     <div className="message-inner">
@@ -75,9 +82,6 @@ export default function TaskLog() {
                     </div>
                 </div>
             </div>
-
         </>
-
     );
-
 }
