@@ -50,7 +50,7 @@ export default function NavBar({ user, setUser }) {
 						<a href="#" className="dropdown-toggle nav-link" data-bs-toggle="dropdown">
 							<span className="user-img"><img src="assets/img/profiles/avatar-21.jpg" alt="User Image"></img>
 								<span className="status online"></span></span>
-							<span>UserName</span>
+							<span>{user.name}</span>
 						</a>
 						<div className="dropdown-menu">
 							<a className="dropdown-item" href="profile.html">My Profile</a>
