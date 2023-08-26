@@ -6,6 +6,7 @@ module.exports = {
   delete: deleteList,
   edit: editList,
   getAll,
+  getOne,
 };
 
 async function create(req, res) {
@@ -50,5 +51,23 @@ async function getAll(req, res) {
     res.status(200).json(lists);
   } catch (err) {
     res.status(500).json(err);
+  }
+}
+
+async function getOne(req, res) {
+  try {
+    const listId = req.params.listId;
+
+    const list = await List.findOne({ _id: listId });
+    console.log(`getOne req in controller : ${list}`);
+
+    if (!list) {
+      return res.status(404).json({ message: 'List not found' });
+    }
+
+    res.json(list); // Send the list data as JSON response
+  } catch (error) {
+    console.error('Error fetching list:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 }

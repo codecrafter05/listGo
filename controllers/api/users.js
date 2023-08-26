@@ -9,6 +9,7 @@ module.exports = {
   login,
   checkToken,
   emailToId, // Added this line
+  getUserNameById,
 };
 
 async function login(req, res) {
@@ -51,6 +52,21 @@ async function emailToId(req, res) {
     res.json({ id: user._id });
   } catch (err) {
     res.status(400).json('Bad Request');
+  }
+}
+
+async function getUserNameById(req, res) {
+  const userId = req.params.id; // Get the user ID from the route parameter
+  try {
+    const user = await User.findById(userId);
+    if (user) {
+      res.json({ name: user.name }); // Send the user's name in the response
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.log('Error fetching user by ID:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }
 
