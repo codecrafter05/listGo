@@ -5,3 +5,7 @@
 .chat-main-row .chat-main-wrapper .sayedhide {
     display: none;
 }
+
+.task-right-sidebar .chat-window .fixed-header .navbar {
+    margin-top: 1em !important;
+}

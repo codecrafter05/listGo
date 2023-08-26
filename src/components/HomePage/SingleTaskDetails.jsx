@@ -32,6 +32,9 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                 console.log(`our response SingleTaskDetails: ${JSON.stringify(response)}`);
                 setTitle(response.title);
                 setStatus(response.status);
+                setAssignedUser(response.assignedUser);
+                setNotes(response.notes);
+                setComments(response.comments);
                 // Update other state variables...
             } catch (error) {
                 console.log('Error fetching task details:', error);
@@ -109,7 +112,7 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                             <div className="chat-wrap-inner">
                                 <div className="chat-box">
                                     <div className="chats">
-                                        <h4>Task Details </h4>
+                                        <h5>Task Details </h5>
                                         <div className="task-header">
                                             <div className="assignee-info">
                                                 <a data-bs-toggle="modal" data-bs-target="#assignee">
