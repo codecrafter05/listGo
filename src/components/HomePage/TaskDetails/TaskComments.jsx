@@ -1,9 +1,17 @@
 // file: src/components/TaskDetails/TaskComments.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function TaskLog() {
     const [text, setText] = useState('');
     const [comments, setComments] = useState([]);
+
+    // Load comments from local storage when component mounts
+    useEffect(() => {
+        const storedComments = JSON.parse(localStorage.getItem('comments'));
+        if (storedComments) {
+            setComments(storedComments);
+        }
+    }, []);
 
     const handleTextChange = (event) => {
         setText(event.target.value);
@@ -22,11 +30,14 @@ export default function TaskLog() {
             const date = new Date();
             const comment = {
                 text,
-                author: 'You', // The username is now "You"
-                date: date.toLocaleString() // The current date and time
+                author: 'You',
+                date: date.toLocaleString()
             };
-            setComments([...comments, comment]);
+
+            const newComments = [...comments, comment];
+            setComments(newComments);
             setText('');
+            localStorage.setItem('comments', JSON.stringify(newComments)); // Store comments in local storage
         } else {
             console.error('An error occurred while saving the comment');
         }
