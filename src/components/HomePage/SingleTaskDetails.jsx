@@ -8,21 +8,16 @@ import TaskComments from './TaskDetails/TaskComments';
 import sendRequest from '../../utilities/send-request';
 import '../../index.css'
 
-export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, isDetailsVisible, setIsDetailsVisible }) {
+export default function SingleTaskDetails({ selectedListId, setSelectedTaskId, selectedTaskId, isDetailsVisible, setIsDetailsVisible }) {
     const [title, setTitle] = useState('');
     const [status, setStatus] = useState('');
     const [assignedUser, setAssignedUser] = useState('');
     const [notes, setNotes] = useState('');
     const [dueDate, setDueDate] = useState(null);
     const [comments, setComments] = useState([]);
-    // const [members, setMembers] = useState([]);
+    const [members, setMembers] = useState([]);
+    const [membersIDs, setMembersIDs] = useState([]);
     const toggleDetailsVisibility = () => setIsDetailsVisible(!isDetailsVisible);
-
-    const users = [
-        { id: 1, name: 'Richard Miles', role: 'Web Developer' },
-        { id: 2, name: 'John Smith', role: 'Android Developer' },
-        { id: 3, name: 'Jeffery Lalor', role: 'Team Leader' },
-    ];
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
@@ -46,6 +41,7 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                 setNotes(response.notes);
                 setComments(response.comments);
                 // setMembers(response.members);
+                fetchMembers();
                 // Update other state variables...
                 console.log(`Set task details in SingleTaskDetails JSX: 
                     Title: ${title}
@@ -61,29 +57,45 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
         fetchTaskDetails();
     }, [selectedTaskId]);
 
+    const fetchMembers = async () => {
+        try {
+            const listResponse = await sendRequest(`/api/lists/${selectedListId}`);
+            const memberIds = listResponse.members;
+            setMembersIDs(memberIds); // Corrected this line
+            const memberNames = await Promise.all(memberIds.map(async memberId => {
+                const userNameResponse = await sendRequest(`/api/users/${memberId}`);
+                return userNameResponse.name;
+            }));
+            setMembers(memberNames);
+        } catch (error) {
+            console.log('Error fetching members:', error);
+        }
+    };
 
-    const handleAssignClick = async (user) => {
-        // Update the state
-        setAssignedUser(user);
 
+    const handleAssignClick = async (memberIndex) => {
+        const selectedMemberId = membersIDs[memberIndex];
+        // Update the state with the selected member's ID
+        setAssignedUser(selectedMemberId);
         try {
             const response = await fetch(`/api/tasks/${selectedTaskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ assignedTo: user })
+                body: JSON.stringify({ assignedTo: selectedMemberId })
             });
-
+            const responseData = await response.json();
             if (response.ok) {
                 console.log('Assigned user updated successfully');
             } else {
-                console.error('An error occurred while updating the assigned user');
+                console.error('An error occurred while updating the assigned user:', responseData);
             }
         } catch (error) {
             console.error('An error occurred:', error);
         }
     };
+
 
 
     const handleDateChange = async (date) => {
@@ -151,7 +163,15 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                                                     </div>
                                                     <div className="assigned-info">
                                                         <div className="task-head-title">Assigned To</div>
-                                                        <div className="task-assignee">{assignedUser ? assignedUser.name : 'None'}</div>
+                                                        <div className="task-assignee">
+                                                            {assignedUser ? (
+                                                                <span>
+                                                                    {assignedUser.name}
+                                                                </span>
+                                                            ) : (
+                                                                'None'
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </a>
                                                 <span className="remove-icon">
@@ -204,7 +224,7 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                                 <ul className="chat-user-list">
                                     <div>
                                         <ul>
-                                            {users.map((user) => (
+                                            {/* {users.map((user) => (
                                                 <li key={user.id}>
                                                     <a href="#" onClick={() => handleAssignClick(user.name)}>
                                                         <div className="chat-block d-flex">
@@ -214,6 +234,20 @@ export default function SingleTaskDetails({ setSelectedTaskId, selectedTaskId, i
                                                             <div className="media-body align-self-center text-nowrap">
                                                                 <div className="user-name">{user.name}</div>
                                                                 <span className="designation">{user.role}</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            ))} */}
+                                            {members.map((memberName, index) => (
+                                                <li key={index}>
+                                                    <a href="#" onClick={() => handleAssignClick(index)}>
+                                                        <div className="chat-block d-flex">
+                                                            <div className="avatar">
+                                                                <img src="assets/img/profiles/avatar-02.jpg" alt="User Image" />
+                                                            </div>
+                                                            <div className="media-body align-self-center text-nowrap">
+                                                                <div className="user-name">{memberName}</div>
                                                             </div>
                                                         </div>
                                                     </a>
