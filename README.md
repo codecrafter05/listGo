@@ -1,5 +1,5 @@
-Lest Go
-# Team Task Manager App: A Paragon of Efficiency
+
+# List Go App: Where Organization Meets Simplicity!
 
 Our team is excited to present a pinnacle of productivity tools: a robust, intuitive, and efficient Task Manager application. This state-of-the-art tool is constructed using the power of Express Node.js and the flexibility of React, drawing inspiration from renowned project management platforms such as Trello.
 
@@ -17,7 +17,7 @@ In addition, admins can monitor the progress of tasks and set ambitious yet achi
 
 To provide a glimpse into the elegance of our application's design and user interface, we have captured some screenshots and wireframes:
 
-![alt text](img/trello.png "Team Tasks")
+![alt text](imgages/trello.png "Team Tasks")
 
 ## Wireframes: Blueprint of Brilliance
 
