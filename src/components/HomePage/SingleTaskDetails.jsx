@@ -21,38 +21,41 @@ export default function SingleTaskDetails({ selectedListId, setSelectedTaskId, s
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
-            try {
-                console.log(`selected task is in useEffect singletaskdetails: ${JSON.stringify(selectedTaskId)}`);
-                console.log(`/ api / tasks / ${selectedTaskId}`);
-                const response = await sendRequest(`/api/tasks/${selectedTaskId}`);
-                console.log(`our response SingleTaskDetails: ${JSON.stringify(response)}`);
-                setTitle(response.title);
-                setStatus(response.status);
-                if (response.assignedTo) {
-                    try {
-                        const assignedUserName = await sendRequest(`/api/users/${response.assignedTo}`);
-                        setAssignedUser(assignedUserName);
-                    } catch (error) {
-                        console.log('Error fetching assignedTo name:', error);
+            if (selectedTaskId) {
+                try {
+                    console.log(`selected task is in useEffect singletaskdetails: ${JSON.stringify(selectedTaskId)}`);
+                    console.log(`/ api / tasks / ${selectedTaskId}`);
+                    const response = await sendRequest(`/api/tasks/${selectedTaskId}`);
+                    console.log(`our response SingleTaskDetails: ${JSON.stringify(response)}`);
+                    setTitle(response.title);
+                    setStatus(response.status);
+                    if (response.assignedTo) {
+                        try {
+                            const assignedUserName = await sendRequest(`/api/users/${response.assignedTo}`);
+                            setAssignedUser(assignedUserName);
+                        } catch (error) {
+                            console.log('Error fetching assignedTo name:', error);
+                        }
+                    } else {
+                        setAssignedUser({});
                     }
-                } else {
-                    setAssignedUser({});
-                }
-                setNotes(response.notes);
-                setComments(response.comments);
-                // setMembers(response.members);
-                fetchMembers();
-                // Update other state variables...
-                console.log(`Set task details in SingleTaskDetails JSX: 
+                    setNotes(response.notes);
+                    setComments(response.comments);
+                    // setMembers(response.members);
+                    fetchMembers();
+                    // Update other state variables...
+                    console.log(`Set task details in SingleTaskDetails JSX: 
                     Title: ${title}
                     Status: ${status}
                     Assigned User: ${assignedUser}
                     Notes: ${notes}
                     Comments: ${JSON.stringify(comments)}
                 `);
-            } catch (error) {
-                console.log('Error fetching task details:', error);
+                } catch (error) {
+                    console.log('Error fetching task details:', error);
+                }
             }
+
         };
         fetchTaskDetails();
     }, [selectedTaskId]);
