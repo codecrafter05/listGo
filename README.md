@@ -1,42 +1,60 @@
-Done from trello (Team Task Manager)
+# Team Task Manager App
 
-![alt text](img/trello.png "Team Tasks")
-wire frame
-![alt text](images/Untitled-2023-08-20-0031.png "Team Tasks")
-![alt text](images/Untitled-2023-08-20-00312.png "Team Tasks")
+We have designed a robust Task Manager application utilizing Express Node.js and React, taking inspiration from the popular project management tool, Trello. This application is designed to facilitate efficient management and delegation of tasks between admins and users.
 
+## App Overview
 
+This application is designed to streamline task management within a team. Admins can create, assign, edit, and delete tasks for all users, allowing them to effectively manage their team's workload. Users can view their tasks, mark them as complete, and add notes or comments, fostering a collaborative environment. Admins can also monitor the progress of tasks and set deadlines, ensuring projects are completed in a timely manner.
 
+## Screenshots
 
-Users Stories 
+![Team Tasks Screenshot](<>)
 
+## Wireframes
 
-As an admin:
+Wireframes provide a visual guide for the structure and layout of the application. Below are the wireframes for our application:
 
--I want to be able to create, edit, and delete tasks for all users so that I can manage the workload of my team.
--I want to be able to create, edit, and delete tasks for all users so .
--I want to be able to assign tasks to specific users so that I can delegate responsibilities.
--I want to be able to assign tasks to specific users so that I can delegate responsibilities.
--I want to be able to view the progress of all tasks so that I can monitor the productivity of my team.
--I want to be able to set deadlines for tasks so that I can ensure timely completion of projects.
--I want to be able to add, edit and delete notes and comments so that I can communicate and share my thoughts. 
+![Team Tasks Wireframe 1](<>)
+![Team Tasks Wireframe 2](<>)
 
+## User Stories
 
-As an admin, I want to be able to manage the users and the workload of my team by creating, editing, and deleting tasks for all users. I also want to be able to delegate responsibilities by assigning tasks to specific users. To monitor the productivity of my team, I want to be able to view the progress of all tasks. To ensure timely completion of the tasks, I want to be able to set deadlines for tasks. Additionally, I want to be able to communicate and share my thoughts by adding and deleting notes and comments.
+User stories help define the functionalities needed in the application from the perspective of an end-user.
 
+### Admin User Stories
 
-As a user:
+- **Task Management**: As an admin, I want to create, edit, and delete tasks for all users to manage the workload of my team.
+- **Delegate Responsibilities**: As an admin, I want to assign tasks to specific users to delegate responsibilities.
+- **Monitor Progress**: As an admin, I want to view the progress of all tasks to monitor the productivity of my team.
+- **Set Deadlines**: As an admin, I want to set deadlines for tasks to ensure timely completion of projects.
+- **Communication**: As an admin, I want to add, edit and delete notes and comments to communicate and share my thoughts with the team.
 
--I want to be able to add and edit my tasks so that I know what I need to work on. 
--I want to be able to view my assigned tasks so that I know what I need to work on.
--I want to be able to mark tasks as complete so that I can keep track of my progress.
--I want to be able to add notes and comments to tasks so that I can communicate with my team about the task.
--I want to be able to view the deadlines for my tasks so that I can prioritize my workload.
+### User Stories
 
-As a user, I want to be able to add and edit my tasks so that I know what I need to work on. I also want to be able to view my assigned tasks so that I can keep track of my responsibilities. To keep track of my progress, I want to be able to mark tasks as complete. Additionally, I want to be able to communicate with other members about the task by adding notes and comments. To prioritize my workload, I want to be able to view the deadlines for my tasks.
- main
+- **Task Management**: As a user, I want to add and edit my tasks so I know what I need to work on.
+- **View Assigned Tasks**: As a user, I want to view my assigned tasks to manage my responsibilities.
+- **Track Progress**: As a user, I want to mark tasks as complete to monitor my progress.
+- **Communication**: As a user, I want to add notes and comments to tasks to communicate with my team about the task.
+- **View Deadlines**: As a user, I want to view the deadlines for my tasks to help me prioritize my workload.
 
+## Entity Relationship Diagram (ERD)
 
-ERD Diagram
+The Entity Relationship Diagram (ERD) below illustrates the database structure of our application. It shows how data is organized and the relationships between different entities.
 
-![alt text](images/ERD-Diagram.png "ERD Diagram ")
+![ERD Diagram](<>)
+
+## Technology Stack
+
+Our application is built using the following technologies:
+
+- **Frontend**: React - A JavaScript library for building user interfaces.
+- **Backend**: Express Node.js - A web application framework for Node.js, designed for building web applications and APIs.
+- **Database**: MongoDB - A source-available cross-platform document-oriented database program.
+
+## Future Enhancements
+
+We plan to introduce additional features in the future, including:
+
+- **Notifications**: Users will receive notifications when tasks are assigned or deadlines are approaching.
+- **Task Prioritization**: Users will be able to prioritize their tasks based on deadlines and importance.
+- **Integration with third-party tools**: We plan to integrate with collaboration tools like Slack and Google Calendar for better productivity.
