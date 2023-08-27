@@ -42,7 +42,7 @@ export default function SingleTaskDetails({ selectedListId, setSelectedTaskId, s
                     setNotes(response.notes);
                     setComments(response.comments);
                     // setMembers(response.members);
-                    fetchMembers();
+                    selectedTaskId && fetchMembers();
                     // Update other state variables...
                     console.log(`Set task details in SingleTaskDetails JSX: 
                     Title: ${title}
