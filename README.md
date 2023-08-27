@@ -17,7 +17,7 @@ In addition, admins can monitor the progress of tasks and set ambitious yet achi
 
 To provide a glimpse into the elegance of our application's design and user interface, we have captured some screenshots and wireframes:
 
-![alt text](imgages/trello.png "Team Tasks")
+![alt text](images/trello.png "Team Tasks")
 
 ## Wireframes: Blueprint of Brilliance
 
